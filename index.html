@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="icon" href="images/favicon.ico" />
+
+		<title>Echyzen RxJS Tutorial</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/blood.css">
+		<link rel="stylesheet" href="css/style.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<link rel="import" id="link_introduction" href="chapters/introduction.html">
+		<link rel="import" id="link_paradigm" href="chapters/paradigm.html">
+		<link rel="import" id="link_streams" href="chapters/streams.html">
+		<link rel="import" id="link_marble_diagram" href="chapters/marble_diagram.html">
+		<link rel="import" id="link_operator" href="chapters/operator.html">
+		<link rel="import" id="link_operator_creator" href="chapters/operator_creator.html">
+		<link rel="import" id="link_operator_filter" href="chapters/operator_filter.html">
+		<link rel="import" id="link_operator_combination" href="chapters/operator_combination.html">
+		<link rel="import" id="link_operator_transformation" href="chapters/operator_transformation.html">
+		<link rel="import" id="link_rxjs_library" href="chapters/rxjs_library.html">
+		<link rel="import" id="link_subject" href="chapters/subject.html">
+		<link rel="import" id="link_error_handling" href="chapters/error_handling.html">
+		<link rel="import" id="link_testing" href="chapters/testing.html">
+		<link rel="import" id="link_more_link" href="chapters/more_link.html">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section data-background-color="#F82B90">
+					<section >
+						<img src="images/rxjs_logo.png" style="border: none;" alt="logo RxJS" />
+						<h1>RxJS Tutorial</h1>
+					</section>
+					<section>
+						<h2>Summary</h2>
+						<ul>
+							<li>Introduction</li>
+							<li>Principle</li>
+							<li>Streams</li>
+							<li>Operators</li>
+							<li>Error Handling</li>
+							<li>Testing</li>
+							<li>More Link</li>
+						</ul>
+					</section>
+				</section>
+				<section id="introduction"></section>
+				<section id="paradigm"></section>
+				<section id="streams"></section>
+				<section id="marble_diagram"></section>
+				<section id="operator"></section>
+				<section id="operator_creator"></section>
+				<section id="operator_filter"></section>
+				<section id="operator_combination"></section>
+				<section id="operator_transformation"></section>
+				<section id="rxjs_library"></section>
+				<section id="subject"></section>
+				<section id="error_handling"></section>
+				<section id="testing"></section>
+				<section id="more_link"></section>
+
+				<section>
+					<h3>Bibliography</h3>
+					<ul>
+						<li><a href="http://graphql.org/" target="_blank">GraphQL</a></li>
+						<li><a href="https://facebook.github.io/relay/" target="_blank">Relay</a></li>
+						<li><a href="https://www.streamstographql.com/" target="_blank">GraphQL summary</a></li>
+						<li><a href="https://dev-blog.apollodata.com/a-guide-to-authentication-in-graphql-e002a4039d1" target="_blank">Authentification</a></li>
+						<li><a href="https://dev-blog.apollodata.com/auth-in-graphql-part-2-c6441bcc4302" target="_blank">Authorization</a></li>
+						<li><a href="https://dev-blog.apollodata.com/understanding-pagination-rest-graphql-and-relay-b10f835549e7" target="_blank">Pagination solutions</a></li>
+						<li><a href="http://graphql.org/learn/pagination/" target="_blank">GraphQL Pagination overview</a></li>
+						<li><a href="https://medium.com/@mattmazzola/graphql-pagination-implementation-8604f77fb254" target="_blank">GraphQL Pagination implementation</a></li>
+						<li><a href="https://dev-blog.apollodata.com/graphql-vs-falcor-4f1e9cbf7504" target="_blank">Appollo post</a></li>
+						<li><a href="http://putaindecode.io/fr/articles/api/hateoas/" target="_blank">HATEOAS</a></li>
+						<li><a href="https://github.com/traverson/traverson" target="_blank">traverson</a></li>
+						<li><a href="https://stormpath.com/blog/put-or-post" target="_blank">Indempotence</a></li>
+					</ul>
+				</section>
+			</div>
+
+			<footer id="footer" class="animated-middle">
+				<ul class="icons">
+					<li><a href="https://github.com/GuillaumeUnice" class="icon" target="_blank"><i class="fa fa-github"></i></a></li>
+					<li><a href="https://www.youtube.com/channel/UC2Y0v3L_J9wTFkkqnLuCDGg" class="icon" target="_blank"><i class="fa fa-youtube"></i></a></li>
+					<li><a href="https://twitter.com/EchyzenWebsite" class="icon" target="_blank"><i class="fa fa-twitter"></i></a></li>
+					<!--<li><a href="https://vimeo.com/user13696089" class="icon" target="_blank"><i class="fa fa-vimeo-square"></i></a></li>
+					<li><a href="https://uk.pinterest.com/guillaumeunice/" class="icon" target="_blank"><i class="fa fa-pinterest"></i></a></li>
+					<li><a href="https://www.linkedin.com/in/guillaume-borg-0904b8a8" class="icon" target="_blank"><i class="fa fa-linkedin"></i></a></li>-->
+				</ul>
+			</footer>
+		</div>
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+		<script src="js/web_component/HTMLImports.min.js"></script>
+		<!--<script src="js/web_component/CustomElements.min.js"></script>
+		<script src="js/web_component/MutationObserver.min.js"></script>
+
+		<script src="js/web_component/webcomponents.min.js"></script>-->
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+		<script>
+		    document.addEventListener( 'HTMLImportsLoaded', function ()
+    		{
+				document.getElementById("introduction").innerHTML = document.getElementById('link_introduction').import.body.innerHTML;
+				document.getElementById("paradigm").innerHTML = document.getElementById('link_paradigm').import.body.innerHTML;
+				document.getElementById("streams").innerHTML = document.getElementById('link_streams').import.body.innerHTML;
+				document.getElementById("marble_diagram").innerHTML = document.getElementById('link_marble_diagram').import.body.innerHTML;
+				document.getElementById("operator").innerHTML = document.getElementById('link_operator').import.body.innerHTML;
+				document.getElementById("operator_creator").innerHTML = document.getElementById('link_operator_creator').import.body.innerHTML;
+				document.getElementById("operator_filter").innerHTML = document.getElementById('link_operator_filter').import.body.innerHTML;
+				document.getElementById("operator_combination").innerHTML = document.getElementById('link_operator_combination').import.body.innerHTML;
+				document.getElementById("operator_transformation").innerHTML = document.getElementById('link_operator_transformation').import.body.innerHTML;
+				document.getElementById("rxjs_library").innerHTML = document.getElementById('link_rxjs_library').import.body.innerHTML;
+				document.getElementById("subject").innerHTML = document.getElementById('link_subject').import.body.innerHTML;
+				document.getElementById("error_handling").innerHTML = document.getElementById('link_error_handling').import.body.innerHTML;
+				document.getElementById("testing").innerHTML = document.getElementById('link_testing').import.body.innerHTML;
+				document.getElementById("more_link").innerHTML = document.getElementById('link_more_link').import.body.innerHTML;
+			})
+		</script>
+	</body>
+</html>

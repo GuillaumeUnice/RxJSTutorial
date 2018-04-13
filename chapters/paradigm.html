@@ -1,0 +1,234 @@
+<section>
+    <h2>What &amp; Why</h2>
+    <blockquote>
+        A library to streamline (no pun intented) our code through an Unidirectional Data Flow based on Functional Reactive Programming
+        (aka FRP) &amp; OOP Observer and Iterator Design Pattern.
+
+    </blockquote>
+    <p>
+        Intoduce a New Asynchronous Structure concerning the code but also the Error-Handling
+        <br> => The chief goal consist to make it easier the composition of asynchronous code.
+    </p>
+</section>
+<section>
+    <h2>Paradigm Tree!</h2>
+    <img src="images/paradigm.png" style="border: none;" alt="schema show different programming paradigm family" />
+</section>
+<section>
+    <h2>Appendix side-effect</h2>
+    <img src="images/side_effect.png" style="border: none;" alt="Simple example of a side-effect" />
+    <p>Side-effect concern function which update/use:</p>
+    <ul>
+        <li>Global or Static variable</li>
+        <li>Update argument(s)</li>
+        <li>Write/Read date to file, database, call API</li>
+    </ul>
+</section>
+<section>
+    <h2>Declarative vs Imperative</h2>
+    <img src="images/declarative_example.png" style="border: none;" alt="Example between declarative and imperative mindset"
+    />
+    <p>
+        Applying these functions declaratively meaning your code expresses the
+        <strong>what</strong> and not the
+        <strong>how</strong> of what you’re trying to accomplish
+    </p>
+</section>
+<section>
+    <h2>RxJS Principles &amp; Mindset</h2>
+    <ul>
+        <!-- Flatten Development =>more concise, readable, understandable | Unit code is the function not a stateful class | leverage us in more mathematical mindset without Computer Science problematic memory and so on-->
+        <li>FP (Higher-Order Function, Pure Function, Immutability, Functor, Lazyness)</li>
+        <li>Unifying Computing Model (Observable Operator)</li>
+        <!--RxJS allows you to build logic independently of the type of data source you need to interact with-->
+        <li>OOP (Iterator Pattern + Observer Pattern)</li>
+        <li>Streamline Memory Handling (less Memory Leak)</li>
+        <li>
+            <a href="//www.reactivemanifesto.org/" target="_blank">Reactive Manifesto</a>
+        </li>
+    </ul>
+</section>
+<section>
+    <h2>Functional Programming Principles &amp; Mindset</h2>
+    <img src="images/functional_programming.png" style="border: none;" alt="functional programming listed principle" />
+</section>
+<section>
+    <h2>Reactive Programming Principles &amp; Mindset</h2>
+    <!--Thinking Reactively-->
+    <img src="images/reactive_programming.png" width="400" style="border: none;" alt="Excel example to demonstrate reactive programming mindset"
+    />
+    <!-- Certainly, asynchronous functions allow us to stay responsive, but they come at a price. Where synchronous programs
+    allow us to reason directly about the state of the appli- cation, asynchronous code forces us to reason about its future
+    state. -->
+    <pre><code class="js"  data-trim contenteditable>
+        stream1$ = [1];
+        stream2$ = [2];
+        streamAdd$ = stream1$.concat(stream2$).reduce(sum); // => 3
+        stream1$.push(10);
+        // What's going on? Concerning streamAdd$???
+    </code></pre>
+</section>
+<section>
+    <h2>FP + RP = FRP!</h2>
+    <blockquote>
+        A stream is FRP => FP with steroids!!!
+    </blockquote>
+</section>
+<section>
+    <h2>Current common Type solution</h2>
+    <table>
+        <thead>
+            <tr style="color: rgb(233, 70, 70)">
+                <th></th>
+                <th>Single Value</th>
+                <th>Multiple Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="color: rgb(70, 81, 233)">Synchronous</td>
+                <td>Char - Boolean - Number</td>
+                <td>String - Array - Map</td>
+            </tr>
+            <tr>
+                <td style="color: rgb(70, 81, 233)">Asynchronous</td>
+                <td>Promise</td>
+                <td>Event Emitter - DOM Event</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+<section>
+    <h2>Asynchronous emphasis</h2>
+    <!-- Synchronous code is a step-by-step sequential execution of statements where each step depends on the previous one to run.
+        VS Callback functions in JavaScript create an inversion of control where functions call the application back, instead
+        of the other way around.
+        // Arrow function
+        think about futur state everytime everywhere -->
+    <img src="images/event_loop.jpg" width="400" style="border: none;" alt="JS Event-Loop schema" />
+    <p>JavaScript Event-Loop:
+        <a href="//latentflip.com/loupe/" target="_blank">Here</a>
+    </p>
+</section>
+<section>
+    <h2>Callback</h2>
+    <pre><code class="js" data-trim contenteditable>
+            getData(function(a){
+                getMoreData(a, function(b){
+                    getMoreMoreData(b, function(c){
+                        getMoreMoreMoreData(c, function(d){
+                            getMoreMoreMoreMoreData(d, function(e){
+                                // and so on...
+                            });
+                        });
+                    });
+                });
+            });
+        </code></pre>
+    <blockquote>Horizontally nested calls => "Callback Hell"</blockquote>
+</section>
+
+<!-- <section>
+        Mix: Imperative (for loop) + asynchonous = bug => flat that with Functor no loop anymore Functions that terminate at unpredictable
+        times are typically harder to deal with without the proper methods and practices. When this happens, the mental model
+        of our application needs to shift to compensate for this additional dimension. => side effect solution => pure function
+        (from FP)
+    </section> -->
+
+<section>
+    <h4>Promises (FP principle)</h4>
+    <!-- Promise s to represent any asynchronous computation that’s expected to complete in the future With Promise s, you can chain
+        together a set of actions with future values to form a continuation. 2 A continuation is just a fancy term for writing
+        callbacks and has a lot to do with the principle of Inversion of Control we referenced earlier. A continuation (a
+        callback) allows the function to decide what it should do next, instead of indiscriminately wait- ing for a return
+        value. They’re used heavily when iterating over arrays, tree structures, try/catch blocks, and, of course, asynchronous
+        programming. A Promise is a data type that wraps an asynchronous or long-running operation, a future value, with
+        the ability for you to subscribe to its result or its error. Promise s create a flow of calls chained by then methods.
+        If the Promise is fulfilled, the chain of functions continues; otherwise, the error is delegated to the Promise catch
+        block. CF figure 1.7 -->
+
+    <pre><code class="js" data-trim contenteditable>
+            // Callback
+            step1(value, function(data){
+                step2(data, function(data2){
+                    step3(data2, function(data3){
+                    step4(data3, function(data4){
+                        //INSTRUCTIONS ...
+                    });
+                    });
+                });
+            });
+
+            // Promise
+            step1.then(step2).then(step3).then(step4)
+        </code></pre>
+    <img src="images/promise_schema.png" width="400" style="border: none;" alt="Promise schema" />
+</section>
+
+<section>
+    <h4>Promise drawbacks!</h4>
+    <!--TODO: Add Netflix video-->
+    <ul>
+        <li>Manage only one value (not like mouse event or sequence of bytes in a file stream</li>
+        <li>Once run/trig couldn't be cancelled</li>
+    </ul>
+    <!-- But what you really need is a solution that abstracts out the notion of latency away from your code while allowing you to
+        model your solutions using a linear sequence of steps through which data can flow over time -->
+</section>
+</section>
+
+<section>
+    <h4>Mutliple data in a synchrounous way RP</h4>
+    Usual solution Event Emitter (like NodeJS or Forms :D) CF figure 1.6 composing nested asynchronous flow = problem => need
+    an additional lifted level of abstraction
+</section>
+<section>
+    <h2>Don't worry stream is beautiful!</h2>
+    <p style="font-size: 0.5em;">We have to shift our mindset to think in terms of streams, also known as functional sequences of events. RxJS implements
+        under the hood through the use of familiar patterns such as iterator and observer.</p>
+    <table>
+        <thead>
+            <tr style="color: rgb(233, 70, 70)">
+                <th></th>
+                <th>Single Value</th>
+                <th>Multiple Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="color: rgb(70, 81, 233)">Synchronous</td>
+                <td>Observable</td>
+                <td>Observable</td>
+            </tr>
+            <tr>
+                <td style="color: rgb(70, 81, 233)">Asynchronous</td>
+                <td>Observable</td>
+                <td>Observable</td>
+            </tr>
+        </tbody>
+    </table>
+    <img src="images/stream.jpeg" width="350" style="border: none;" alt="Everything is a Stream meme" />
+</section>
+
+<section>
+    <h2>OOP DP</h2>
+    <p>Two Behaviour DPs: Observer &amp; Iterator</p>
+</section>
+<section>
+    <h2>Observer</h2>
+
+    <img src="images/observer_uml.jpeg" style="border: none;" alt="Observer UML Diagram" />
+    <p>
+        <a href="//jsfiddle.net/Echyzen/2xk3o92x/11/" target="_blank">Here</a>
+    </p>
+
+</section>
+<section>
+    <h2>Iterator</h2>
+
+    <img src="images/iterator_uml.jpeg" style="border: none;" alt="Iterator UML Diagram" />
+    <p>
+        <a href="//jsfiddle.net/MrPolywhirl/7rmrxu33/" target="_blank">Here</a>
+    </p>
+
+</section>

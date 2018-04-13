@@ -1,0 +1,79 @@
+<section>
+    <h3>Operators introduction API</h3>
+    <p></p>
+</section>
+<section>
+    <h3>Operator type</h3>
+    <ul>
+        <li>Creator Operator *</li><!--*-->
+        <li>Transforming Operator *</li>
+        <li>Filtering Operator *</li>
+        <li>Combining Operator *</li><!--*-->
+        <li>Conditional &amp Boolean Operator</li>
+        <li>Mathematical &amp Aggregate Operator</li>
+        <li>Error Handling Operator *</li><!--*-->
+        <li>Utility/Tool Operator (like do() or tap()) *</li>
+        <li>Multicasting Operator</li>
+    </ul>
+
+    <section>
+        <h4>Static /Observable methods / Observable factory VS instance/Observable instance methods</h4>
+        The static methods are defined directly on the Rx.Observable object and are not part of the object’s proto- type. These are
+        typically used for initiating the declaration of an observable instance, for example, Rx.Observable.interval(500).
+        BASICALLY static mehtods for Creator Operator & some Combining Operators On the other side : The observable instance
+        methods are included in the object’s prototype and are used as members of the chained pipeline after you’ve initiated
+        an observable declaration.
+    </section>
+</section>
+<section>
+
+    <h4>Core/Common/Main Operator</h4>
+    <ul>
+        <li>map</li>
+        <li>filter</li>
+        <li>reduce (scan)</li>
+    </ul>
+</section>
+
+<section>
+    <h4>Map Operator</h4>
+    <!-- <p>Applies a given project function to each value emitted by the source Observable, and emits the resulting values as an Observable</p> -->
+    <pre><code class="hljs"  data-trim contenteditable>
+            Rx.Observable.fromEvent(document, 'click')
+            .map(ev => ev.clientX)
+        </code></pre>
+    <iframe src="https://giphy.com/embed/7SHwcdWKQGHQqpElbv" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+
+    <blockquote>It passes each source value through a transformation function to get corresponding output values</blockquote>
+</section>
+
+<section>
+    <h4>Filter Operator</h4>
+    <!-- <p>Filter items emitted by the source Observable by only emitting those that satisfy a specified predicate.</p> -->
+    <pre><code class="hljs"  data-trim contenteditable>
+            Rx.Observable.timer(0, 1000)
+            .filter(x => x % 2 === 0)
+        </code></pre>
+    <iframe src="https://giphy.com/embed/fQPSQ6Va1v9kmstsnb" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    <blockquote>It only emits a value from the source if it passes a criterion function</blockquote>
+</section>
+
+<section>
+    <h4>Reduce Operator</h4>
+    <!-- <p>Applies an accumulator function over the source Observable, and returns the accumulated result when the source completes, given an optional seed value.</p> -->
+    <pre><code class="hljs"  data-trim contenteditable>
+                Rx.Observable.timer(0, 1000)
+                .take(6)
+              .reduce((acc, cur) => acc += cur, 0)
+            </code></pre>
+    <iframe src="https://giphy.com/embed/RI4JxoQzejbhANMYqi" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    <iframe src="https://giphy.com/embed/pzr4yV0NrCGvLE6cb4" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    <blockquote>Combines together all values emitted on the source, using an accumulator function that knows how to join a new source
+        value into the accumulation from the past</blockquote>
+</section>
+<section>
+    <h4>Scan Operators</h4>
+    <!-- <p>Applies an accumulator function over the source Observable, and returns each intermediate result, with an optional seed value</p> -->
+    <iframe src="https://giphy.com/embed/pVUSiUQ2wzFn28OSBl" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    <blockquote>It's like reduce, but emits the current accumulation whenever the source emits a value</blockquote>
+</section>
