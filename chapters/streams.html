@@ -1,58 +1,46 @@
 <section>
-    <h3>Unidirection data flow</h3>
-    <p>Everythink is a stream!</p>
-    <p>Stream pipeline (side effect after for the consumer)</p>
+    <h2>Streams principle</h2>
 
-    <img src="images/stream_schema.png" style="border: none;" alt="RxJS Stream schema" />
     <blockquote>FP + RP + OPP DP (Observer + Iterator) = FRP => RxJS</blockquote>
+
+    <div class="flex-container">
+        <div>
+            <h3>FP</h3>
+            <ul>
+                <li>Lazy evaluation</li>
+                <li>Functor</li>
+                <li>Monad</li>
+            </ul>
+        </div>
+        <div>
+            <h2>OOP</h2>
+            <ul>
+                <li>Observer</li>
+                <li>Iterator</li>
+            </ul>
+        </div>
+    </div>
+    <blockquote>Everythink is a stream!</blockquote>
 </section>
 <section>
-    <h4>Streams principle</h4>
-    <ul>
-        <li>Abstract the notion of time</li>
-        <li>Lazy evaluation</li>
-        <li>Functor</li>
-        <li>Monad</li>
-    </ul>
-    => FP
-<ul>
-    <li>Observer</li>
-    <li>Iterator</li>
-</ul>
-=> OOP
+    <h2>Unidirection data flow</h2>
+    <img src="images/stream_schema.png" style="border: none;" alt="RxJS Stream schema" />
+    <p>Stream pipeline (side effects postponed after concern the consumer)</p>
 </section>
 <section>
-    <h4>RxJS principle</h4>
+    <h2>RxJS Component</h2>
     <ul>
-        <li>Producer => Observable</li><!-- emitted, generated, static data -->
+        <li>Producer => Observable</li>
+        <!-- emitted, generated, static data -->
         <li>Consumer => Observer</li>
-        <li>Data pipeline => Observable Operators</li>
+        <li>Data pipeline => Observable Operators (business logic)</li>
         <!--<li>time => everywhere but implicit (:class)</li>-->
     </ul>
-</section>
-
-<section>
-    <h4>Why Observable vs Observer?</h4>
-    <p>It enables you to hide differences of implementation behind a common inter-
-            face, which lets you focus more on the business logic of your task. This has the
-            benefit of not only optimizing development time but also reducing code com-
-            plexity by removing extra noise from code.
-             The separation of production and consumption builds a clear separation of
-            concerns and makes the direction of data flow clear.
-             It makes streams testable by allowing you to attach mock versions of the pro-
-            ducer and wire the corresponding matching expectations in the observer.</p>
+    <p>Abstract the notion of time</p>
 </section>
 <section>
-    <h4>In action</h4>
-    <pre><code class="hljs" data-trim contenteditable>
-            #GraphQL Schema
-        (let subscribe =) Stream.timerInSeconds()                   # Producer
-            .interval()                                       # pipeline
-            .map(x => x.value)                         # pipeline
-            .filter(x => x % 2 === 0)                # pipeline
-            .take(10)                                          # pipeline
-            .subscribe(val => console.log(val)) # consumer
-    </code></pre>
+    <h2>Why Observable vs Observer?</h2>
+    <p>Decoupled Business Logic from View (so side-effect) => Separation of concerns</p>
 </section>
 <section>
     <h4>Observable liability</h4>
@@ -63,21 +51,28 @@
         <li>Prepare data for consumer</li>
     </ul>
 </section>
-
 <section>
-        <h4>Observer liability</h4>
-        <ul>
-            <li>Interact with DOM</li>
-            <li>Log to console</li>
-            <li>Read/Write filesystem</li>
-            <li>Read/Write Database</li>
-        </ul>
-    </section>
-    <section>
-        <h4>RxJS API</h4>
-
-
+    <h4>Observer liability</h4>
+    <ul>
+        <li>Interact with DOM</li>
+        <li>Log to console</li>
+        <li>Read/Write filesystem</li>
+        <li>Read/Write Database</li>
+    </ul>
+</section>
+<section>
+    <h4>RxJS API</h4>
     <img src="images/Observable_schema.png" style="border: none;" alt="RxJS Observable schema" />
-
-    </section>
-1.4.4
+</section>
+<section>
+    <h2>Implementation</h2>
+    <pre><code class="js" data-trim contenteditable>
+            // Implementation Example
+            [const subscribe =] Stream.timerInSeconds()                 // Producer
+                .interval()                                             // pipeline
+                .map(x => x.value)                                      // pipeline
+                .filter(x => x % 2 === 0)                               // pipeline
+                .take(10)                                               // pipeline
+                .subscribe(val => console.log(val))                     // consumer
+        </code></pre>
+</section>

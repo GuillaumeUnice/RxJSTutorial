@@ -5,9 +5,60 @@
         <li>from</li>
         <li>promise</li>
         <li>fromEvent</li>
+        <br>
+        <li>create</li>
     </ul>
 </section>
-<section>
-    <h4>Of Operator</h4>
 
+<section>
+    <h2>Creation Operator</h2>
+    <table>
+        <thead>
+            <tr style="color: rgb(233, 70, 70)">
+                <th></th>
+                <th>Single Value</th>
+                <th>Multiple Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="color: rgb(70, 81, 233)">Synchronous</td>
+                <td>.of()
+                    <a href="//jsfiddle.net/btroncone/d9rng4dj/" target="_blank">here</a>
+                </td>
+                <td>.from()
+                    <a href="//jsfiddle.net/btroncone/o7kb5e6j/" target="_blank">here</a> &amp;
+                    <a href="//jsfiddle.net/btroncone/hfvzjcvL/" target="_blank">here</a>
+                </td>
+            </tr>
+            <tr>
+                <td style="color: rgb(70, 81, 233)">Asynchronous</td>
+                <td>.fromPromise (!!!! not infinite one single value)
+                    <a href="//jsfiddle.net/Echyzen/w86j4xcd/6/" target="_blank">here</a>
+                </td>
+                <td>.fromEvent => infinite never produce complete()
+                    <a href="http://jsfiddle.net/Echyzen/8zk4ovxc/1486/" target="_blank">here</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </section>
+<section>
+    <h4>Operator Create</h4>
+    <p>
+        <a href="http://jsfiddle.net/Echyzen/vtozg6uf/49/" target="_blank">Here</a>
+    </p>
+    <p>The business logic of how the values are generated and emitted belongs in the observable</p>
+</section>
+<section>
+    <h4>Other Creation Operator</h4>
+    <ul>
+        <li>timer(initDelay, period)</li><!--they’re usually combined with observable streams that generate meaningful data-->
+        <li>interval(period)</li>
+        <li>range(startNumber, count) <a href="//jsfiddle.net/Echyzen/6pq7w84u/" target="_blank">here</a></li>
+        <li>repeat <a href="//jsfiddle.net/Echyzen/j3hqdLej/" target="_blank">here</a></li>
+        <li>empty <a href="//jsfiddle.net/Echyzen/yyqtza81/" target="_blank">here</a></li>
+        <li>throw <a href="//jsfiddle.net/Echyzen/dd6z6wqq/" target="_blank">here</a></li>
+    </ul>
+</section>
+<!-- Exercice idea: make a counter with HTLM Button tag:  //jsfiddle.net/wadahiro/8zk4ovxc/ -->
