@@ -22,18 +22,16 @@ much as possible.-->
         <li>Utility/Tool Operator (like do() or tap()) *</li>
         <li>Multicasting Operator</li>
     </ul>
-
-    <section>
-        <h4>Static /Observable methods / Observable factory VS instance/Observable instance methods</h4>
-        The static methods are defined directly on the Rx.Observable object and are not part of the object’s proto- type. These are
-        typically used for initiating the declaration of an observable instance, for example, Rx.Observable.interval(500).
-        BASICALLY static mehtods for Creator Operator & some Combining Operators On the other side : The observable instance
-        methods are included in the object’s prototype and are used as members of the chained pipeline after you’ve initiated
-        an observable declaration.
-    </section>
 </section>
 <section>
-
+    <h4>Static /Observable methods / Observable factory VS instance/Observable instance methods</h4>
+    The static methods are defined directly on the Rx.Observable object and are not part of the object’s proto- type. These are
+    typically used for initiating the declaration of an observable instance, for example, Rx.Observable.interval(500).
+    BASICALLY static mehtods for Creator Operator & some Combining Operators On the other side : The observable instance
+    methods are included in the object’s prototype and are used as members of the chained pipeline after you’ve initiated
+    an observable declaration.
+</section>
+<section>
     <h4>Core/Common/Main Operator</h4>
     <ul>
         <li>map</li>

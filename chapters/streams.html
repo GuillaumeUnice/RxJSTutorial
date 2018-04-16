@@ -68,7 +68,7 @@
     <h2>Implementation</h2>
     <pre><code class="js" data-trim contenteditable>
             // Implementation Example
-            [const subscribe =] Stream.timerInSeconds()                 // Producer
+            [const subscribe =] stream$.timerInSeconds()                 // Producer
                 .interval()                                             // pipeline
                 .map(x => x.value)                                      // pipeline
                 .filter(x => x % 2 === 0)                               // pipeline
