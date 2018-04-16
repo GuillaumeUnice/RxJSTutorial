@@ -6,8 +6,8 @@
 
     </blockquote>
     <p>
-        Intoduce a New Asynchronous Structure concerning the code but also the Error-Handling
-        <br> => The chief goal consist to make it easier the composition of asynchronous code.
+        Introduce a new <strong>Asynchronous Structure</strong> concerning the code, but also the Error-Handling
+        <br> => The chief goal consist to make it easier the composition of asynchronous code
     </p>
 </section>
 <section>
@@ -17,11 +17,11 @@
 <section>
     <h2>Appendix side-effect</h2>
     <img src="images/side_effect.png" style="border: none;" alt="Simple example of a side-effect" />
-    <p>Side-effect concern function which update/use:</p>
+    <p>Side-effects concern function which update/use:</p>
     <ul>
         <li>Global or Static variable</li>
-        <li>Update argument(s)</li>
-        <li>Write/Read date to file, database, call API</li>
+        <li>Update argument</li>
+        <li>Write/Read data from/to file, database, call API</li>
     </ul>
 </section>
 <section>
@@ -99,6 +99,9 @@
     </table>
 </section>
 <section>
+        <h2>"Once upon a time... Asynchronous"</h2>
+</section>
+<section>
     <h2>Asynchronous emphasis</h2>
     <!-- Synchronous code is a step-by-step sequential execution of statements where each step depends on the previous one to run.
         VS Callback functions in JavaScript create an inversion of control where functions call the application back, instead
@@ -109,6 +112,10 @@
     <p>JavaScript Event-Loop:
         <a href="//latentflip.com/loupe/" target="_blank">Here</a>
     </p>
+    <p><a href="//www.youtube.com/watch?v=8aGhZQkoFbQ" target="_blank">Video</a></p>
+</section>
+<section>
+        <h2>"Fin"</h2>
 </section>
 <section>
     <h2>Callback</h2>
@@ -163,7 +170,7 @@
             step1.then(step2).then(step3).then(step4)
         </code></pre>
     <img src="images/promise_schema.png" width="400" style="border: none;" alt="Promise schema" />
-    <blockquote>Promise returns an immutable, single postponed value</blockquote>
+    <blockquote>Promise returns an immutable, <span style="color: red">single postponed</span> cached value</blockquote>
 </section>
 
 <section>
@@ -178,15 +185,15 @@
 </section>
 </section>
 
-<section>
+<!-- <section>
     <h4>Mutliple data in a synchrounous way RP</h4>
     Usual solution Event Emitter (like NodeJS or Forms :D) CF figure 1.6 composing nested asynchronous flow = problem => need
     an additional lifted level of abstraction
-</section>
+</section> -->
 <section>
     <h2>Don't worry stream is beautiful!</h2>
     <p style="font-size: 0.5em;">We have to shift our mindset to think in terms of streams, also known as functional sequences of events. RxJS implements
-        under the hood through the use of familiar patterns such as iterator and observer.</p>
+        under the hood through the use of familiar patterns such as Iterator and Observer.</p>
     <table>
         <thead>
             <tr style="color: rgb(233, 70, 70)">
