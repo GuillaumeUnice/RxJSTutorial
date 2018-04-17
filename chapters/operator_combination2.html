@@ -1,0 +1,97 @@
+<section>
+    <h2>Combination Operators II</h2>
+    <ul style="font-size: 0.75em">
+        <li>merge</li>
+        <li>concat</li>
+        <li>switch</li>
+        <br>
+        <li>mergeAll</li>
+        <li>concatAll</li>
+        <li>zipAll</li>
+        <br>
+        <li style="color: red">combineLatest</li>
+        <li style="color: red">forkJoin</li>
+        <li style="color: red">zip</li>
+        <li style="color: red">withLatestFrom</li>
+        <br>
+        <li style="color: red">exhaust</li>
+        <li style="color: red">combineAll</li>
+        <li style="color: red">race</li>
+        <li style="color: red">startWith</li>
+    </ul>
+</section>
+
+<section>
+    <h2>combineLatest Operator</h2>
+    <pre style="font-size: 0.5em"><code class="js"  data-trim contenteditable>
+
+    </code></pre>
+    <iframe src="https://giphy.com/embed/" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    <blockquote>Whenever any input Observable emits a value, it computes a formula using the latest values from all the inputs, then emits the output of that formula || When any observable emits a value, emit the latest value from each</blockquote>
+</section>
+<section>
+    <h2>forkJoin Operator</h2>
+    <pre style="font-size: 0.5em"><code class="js"  data-trim contenteditable>
+        Rx.Observable.forkJoin(
+            Rx.Observable.of('Hello'),   // emit 'Hello' immediately
+            Rx.Observable.of('World').delay(1000), // emit 'World' after 1 second
+            Rx.Observable.interval(1000).take(1), // emit 0 after 1 second
+            Rx.Observable.interval(1000).take(2) //emit 0...1 in 1 second interval
+          )
+    </code></pre>
+    <iframe src="https://giphy.com/embed/8Ffuwbei2F2HE7G9nd" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    <p>Pretty much like a Promise.all() but for stream so just keep last value before strem completion
+        <a href="//jsfiddle.net/Echyzen/L8ujp6xr/"
+            target="_blank">here</a>
+    </p>
+    <blockquote>Wait for Observables to complete and then combine last values they emitted || When all observables complete, emit the
+        last emitted value from each</blockquote>
+</section>
+<section>
+    <h2>zip Operator</h2>
+    <pre style="font-size: 0.45em; margin: 0;"><code class="js"  data-trim contenteditable>
+        const interval = Rx.Observable.interval(1000)
+        //when one observable completes no more values will be emitted
+        Rx.Observable
+          .zip( interval, interval.take(2))
+    </code></pre>
+    <iframe src="https://giphy.com/embed/p3UpBnlcSest8ApaFW" width="300" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    <pre style="font-size: 0.45em; margin: 0;"><code class="js"  data-trim contenteditable>
+            let age$ = Rx.Observable.of(27, 25, 29);
+            let name$ = Rx.Observable.of('Foo', 'Bar', 'Beer');
+            let isDev$ = Rx.Observable.of(true, true, false);
+            // Here we compute the created value through a function in last parameter
+            Rx.Observable.zip(age$, name$, isDev$, (age, name, isDev) => ({ age, name, isDev }))
+                .delay(3000)
+        </code></pre>
+    <iframe src="https://giphy.com/embed/NS69RN2zKkGTwpYFvS" width="300" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    <blockquote style="font-size: 0.75em">
+        Combines multiple Observables to create an Observable whose values are calculated from the values, in order, of each of its input Observables
+    </blockquote>
+</section>
+<section>
+    <!-- Exercice explain: withLatestFrom => //jsfiddle.net/btroncone/0dLeksLe/ -->
+    <h2>withLatestFrom Operator</h2>
+    <pre style="font-size: 0.5em"><code class="js"  data-trim contenteditable>
+        const source$ = Rx.Observable.interval(2000) // emit every 2s
+        const secondSource$ = Rx.Observable.interval(500) // emit every 0.5s
+        source$.withLatestFrom(secondSource$)
+            .map(([first, second]) => `First Source (5s): ${first} Second Source (1s): ${second}`)
+        </code></pre>
+    <iframe src="https://giphy.com/embed/2aFfVNhX8jkTHQA2Qq" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    <blockquote>Whenever the source Observable emits a value, it computes a formula using that value plus the latest values from other input Observables, then emits the output of that formula || Also provide the last value from other observables</blockquote>
+</section>
+<section>
+    <h2>exhaust Operator</h2>
+    <iframe src="https://giphy.com/embed/" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    <p></p>
+    <blockquote></blockquote>
+</section>
+<section>
+    <h2>Other Combination Operators</h2>
+    <ul>
+        <li>combineAll</li>
+        <li>race</li>
+        <li>startWith</li>
+    </ul>
+</section>

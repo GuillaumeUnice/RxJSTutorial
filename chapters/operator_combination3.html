@@ -1,0 +1,64 @@
+<section>
+    <h2>Combination Operators III</h2>
+    <ul style="font-size: 0.75em">
+        <li>merge => Interleave events by merging streams</li>
+        <li>concat => Preserve order of events by concatenating streams</li>
+        <li>switch => Switch to the latest stream data</li>
+        <br>
+        <li style="color: red">mergeAll</li>
+        <li style="color: red">concatAll</li>
+        <li style="color: red">zipAll</li>
+        <!--TODO: switchAll is not possible turns out we keep only the last inner Observable so map + switch = switchMap-->
+        <br>
+        <li>combineLatest</li>
+        <li>forkJoin</li>
+        <li>zip</li>
+        <li>withLatestFrom</li>
+        <br>
+        <li>exhaust</li>
+        <li>combineAll</li>
+        <li>race</li>
+        <li>startWith</li>
+    </ul>
+</section>
+<section>
+    <h2>Monad Principle</h2>
+    <p>Additional logic under the hood to compress the inner observable back into a single observable structure</p>
+    <p>Converts a higher-order Observable into a first-order Observable which concurrently delivers all values that are emitted
+        on the inner Observables and applying a combination strategy (merge, concat)</p>
+</section>
+<section>
+    <h2>mergeAll Operator</h2>
+    <blockquote>map + mergeAll = mergeMap</blockquote>
+    <p>merge equivalent nested susbcription
+        <a href="//jsfiddle.net/Echyzen/k6fukb5v/" target="_blank">here</a> &amp;
+        <a href="//jsfiddle.net/Echyzen/qsbfzez0/" target="_blank">here</a>
+    </p>
+    <pre><code class="js"  data-trim contenteditable>
+        Rx.Observable.fromEvent(document, 'click')
+            .map((ev) => Rx.Observable.interval(900).take(5))
+            .mergeAll()
+    </code></pre>
+    <iframe src="https://giphy.com/embed/dup8EiKjcT0iFJSQ63" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    <blockquote>Flattens an Observable-of-Observable || Collect and subscribe to all observables</blockquote>
+</section>
+<section>
+    <h2>concatAll Operator</h2>
+    <blockquote>map + concatAll = concatMap</blockquote>
+    <pre><code class="js"  data-trim contenteditable>
+            Rx.Observable.fromEvent(document, 'click')
+                .map((ev) => Rx.Observable.interval(900).take(5))
+                .concatAll()
+        </code></pre>
+    <iframe src="https://giphy.com/embed/" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    <blockquote>Flattens an Observable-of-Observables by putting one inner Observable after the other || Collect observables and subscribe
+        to next when previous completes</blockquote>
+</section>
+<section>
+    <h2>zipAll Operator</h2>
+    <pre><code class="js"  data-trim contenteditable>
+
+            </code></pre>
+    <iframe src="https://giphy.com/embed/" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    <blockquote></blockquote>
+</section>

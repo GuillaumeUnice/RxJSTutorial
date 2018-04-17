@@ -1,9 +1,83 @@
 <section>
-    <h4>Combination Operators</h4>
-    <ul>
-        <li>merge</li>
+    <h2>Combination Operators I</h2>
+    <ul style="font-size: 0.75em">
+        <li style="color: red">merge => Interleave events by merging streams</li>
+        <li style="color: red">concat => Preserve order of events by concatenating streams</li>
+        <li style="color: red">switch => Switch to the latest stream data</li>
+        <br>
+        <li>mergeAll</li>
+        <li>concatAll</li>
+        <li>zipAll</li>
+        <br>
         <li>combineLatest</li>
         <li>forkJoin</li>
-        <li>concatMap</li>
+        <li>zip</li>
+        <li>withLatestFrom</li>
+        <br>
+        <li>exhaust</li>
+        <li>combineAll</li>
+        <li>race</li>
+        <li>startWith</li>
     </ul>
 </section>
+<!-- <section>
+    <h2>Combination strategy</h2>
+    <ul>
+        <li>Interleave events by merging streams</li>
+        <li>Preserve order of events by concatenating streams</li>
+        <li>Switch to the latest stream data</li>
+    </ul>
+</section> -->
+<section>
+    <h2>Merge Operator</h2>
+    <pre style="font-size: 0.5em"><code class="js"  data-trim contenteditable>
+            // Synchronous behaviour
+            const stream1$ = Rx.Observable.of('a', 'b', 'c')
+            const stream2$ = Rx.Observable.of(1, 2, 3)
+            stream1$.merge(stream2$) // equivalent [Static|Observable] method: Rx.Observable.merge(stream1$, stream2$)
+    </code></pre>
+    <img src="images/merge_synchronous.png" width="400" style="border: none;" alt="Merge Operator with synchronous data Marble Diagram"
+    />
+    <pre style="font-size: 0.5em"><code class="js"  data-trim contenteditable>
+        const clicks$ = Rx.Observable.fromEvent(document, 'click')
+            .map((ev) => ev.clientX)
+        const timer$ = Rx.Observable.interval(1000)
+
+        clicks$.merge(timer$)// equivalent [Static|Observable] method: Rx.Observable.merge(clicks$, timer$)
+    </code></pre>
+    <iframe src="https://giphy.com/embed/l70a0u7fTI7Lri0x5a" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    <blockquote>Flattens multiple Observables together by blending their values into one Observable</blockquote>
+</section>
+<section>
+    <h2>Concat Operator</h2>
+    <pre style="font-size: 0.5em"><code class="js"  data-trim contenteditable>
+            const stream1$ = Rx.Observable.of('a', 'b', 'c').delay(3000)
+            const stream2$ = Rx.Observable.of(1, 2, 3)
+            stream1$.merge(stream2$)// equivalent [Static|Observable] method: Rx.Observable.concat(stream1$, stream2$)
+        </code></pre>
+    <iframe src="https://giphy.com/embed/9RXQODno83AQuGZNGg" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    <pre style="font-size: 0.5em"><code class="js"  data-trim contenteditable>
+                Rx.Observable.concat(Rx.Observable.interval(1000),
+                Rx.Observable.of('This', 'Never', 'Runs'))
+                // When source never completes, the subsequent observables never runs
+                // Warning: Here the second Observable is actually HOT for asynchronous data type
+            </code></pre>
+    <iframe src="https://giphy.com/embed/1AevzIEuTaCZaNqdqt" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    <blockquote>Concatenates multiple Observables together by sequentially emitting their values, one Observable after the other</blockquote>
+</section>
+<section>
+    <h2>switch Operator</h2>
+    <iframe src="https://giphy.com/embed/" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    <p></p>
+    <blockquote></blockquote>
+</section>
+
+<!--
+Exercice: Realize a search bar with a map projection (afterthat replace with a switchMap)
+const search$ = Rx.Observable.fromEvent(inputText, 'keyup')
+    .pluck('target', 'value')
+    .debounceTime(1000)
+    .do(query => console.log(`Querying for ${query}...`))
+    .map(query => sendRequest(testData, query)))
+    .subscribe(...)
+-->
