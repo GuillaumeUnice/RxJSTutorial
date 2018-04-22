@@ -1,4 +1,38 @@
  <section>
     <h3>More powerful the Subject be caution!</h3>
-    <p></p>
+    <p>In fact, publish() is just a façade that uses Rx.Subject to carry out its work</p>
+    <pre style="font-size: 0.5em"><code class="js"  data-trim contenteditable>
+        interface Subject extends Observable implements Subscription {
+        }
+    </code></pre>
+    <pre style="font-size: 0.5em"><code class="js"  data-trim contenteditable>
+        const subject = new Rx.Subject()
+
+        subject.subscribe(x => console.log(`Source 1: ${x}`))
+        subject.subscribe(x => console.log(`Source 2: ${x}`))
+
+        subject.next(0)
+
+        Rx.Observable.from([1, 2, 3, 4, 5])
+            .map(x => x * x)
+            .subscribe(subject)
+    </code></pre>
+<!--
+    <p>So powerful lot of time a risk to break the FP approach by reintroducing state inside pipeline
+
+C'est tellement puissant qu'il y a un risque d'empirer nos mauvaises habitude quand à l'utilisation d'une approche FP en réintroduisant un état dans nos fonction pure et pipelines
+Il est donc préférable de toujours éviter l'utilisation des Subject au profit du couple Observable - Observer autant que faire se peut
+        Dans le cas contraire il est important de les encapsuler le plus possible
+
+    </p> -->
+    <blockquote>Always try to avoid and use usual Observable - Observer couple as far as possible</blockquote>
+</section>
+<section>
+    <h2>Multicast Operator Mapping</h2>
+    <ul>
+        <li>publish => Subject</li>
+        <li>publishBehavior => BehaviourSubject</li>
+        <li>publishReplay => ReplahySubject</li>
+        <li>publishLast => AsyncSubject</li>
+    </ul>
 </section>
