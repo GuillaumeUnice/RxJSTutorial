@@ -49,6 +49,27 @@
 </section>
 <section>
     <h2>zip Operator</h2>
+    <!-- like combineLatest() , except that the former matches the index of the corresponding events one-to-one
+
+    Example with synchronous data:
+    const s1$ = Rx.Observable.of(1, 2, 3, 4, 5, 6, 7, 8, 9);
+const s2$ = Rx.Observable.of('a', 'b', 'c', 'd', 'e');
+Rx.Observable.zip(s1$, s2$).subscribe(console.log);
+//-> [1, "a"]
+[2, "b"]
+[3, "c"]
+[4, "d"]
+[5, "e"]
+203
+Rx.Observable.combineLatest(s1$, s2$).subscribe(console.log);
+//-> [9, "a"]
+[9, "b"]
+[9, "c"]
+[9, "d"]
+[9, "e"]
+
+The zip() operator can be very useful in cases when you need to spread out a stream synchronously over time. We'll see that next with retry backoff strategy implementation
+    -->
     <pre style="font-size: 0.45em; margin: 0;"><code class="js"  data-trim contenteditable>
         const interval = Rx.Observable.interval(1000)
         //when one observable completes no more values will be emitted

@@ -109,3 +109,7 @@ section {
   flex-wrap: wrap;
   justify-content: space-around;
 }
+
+.progress {
+  height: 8px !important;
+}
