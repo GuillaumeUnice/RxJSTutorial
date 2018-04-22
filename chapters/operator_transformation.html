@@ -1,8 +1,102 @@
 <section>
     <h4>Transformation Operators</h4>
     <ul>
+        <li>map</li>
+        <br>
+        <li>buffer</li>
+        <li>bufferCount</li>
+        <li>bufferTime</li>
+        <li>bufferToggle</li>
+        <li>bufferWhen</li>
+        <br>
+        <!--TODO: higher-order observable-->
         <li>mergeMap</li>
-        <li>switchMap</li>
         <li>concatMap</li>
+        <li>switchMap</li>
+        <li>exhaustMap</li>
+        <br>
+        <li>mapTo</li>
+    </ul>
+</section>
+<section>
+    <h4>Buffering</h4>
+    <p>Streams are stateless and don’t store any data nevertheless, sometimes useful to be able to temporarily cache some events
+        and throw a batch of them</p>
+    <img src="images/buffering.png" width="400" style="border: none;" alt="Buffer schema" />
+    <ul>
+        <li>buffer(predicateObservable)</li>
+        <li>bufferCount(number)</li>
+        <li>bufferTime(periodNumber)</li>
+        <li>bufferToggle()</li>
+        <li>bufferWhen(predicateFunction)</li>
+    </ul>
+</section>
+<section>
+    <h4>Buffer Operator</h4>
+
+</section>
+
+<section>
+    <h2>Observable as a Monad!</h2>
+    <img src="images/nested_observable.png" width="400" style="border: none;" alt="Nested Observable schema" />
+</section>
+<section>
+    <h2>MergeMap Operator</h2>
+    <p style="font-size: 0.75em">Named flatMap Operator on RxJS > 5.X</p>
+    <pre><code class="js"  data-trim contenteditable>
+        const clicks$ = Rx.Observable.fromEvent(document, 'click')
+        clicks$.mergeMap((ev) => Rx.Observable.interval(1000))
+    </code></pre>
+    <iframe src="https://giphy.com/embed/uV6qjsjkzzcnoFQF1j" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    <blockquote></blockquote>
+</section>
+<section>
+    <h2>ExhaustMap Operator</h2>
+    <pre><code class="js"  data-trim contenteditable>
+            const clicks$ = Rx.Observable.fromEvent(document, 'click')
+            clicks$.exhaustMap((ev) => Rx.Observable.interval(1000).take(5))
+    </code></pre>
+    <iframe src="https://giphy.com/embed/NTgaF9Pv2JHqrnmrTg" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    <blockquote></blockquote>
+</section>
+<section>
+    <h2>switchMap</h2>
+    <iframe src="https://giphy.com/embed/5nsfoSeaaQ6xdJaQxN" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+
+    <blockquote></blockquote>
+</section>
+<section>
+    <h2>exhaustMap</h2>
+
+    <blockquote>Maps each value to an Observable, then flattens all of these inner Observables using exhaust</blockquote>
+</section>
+<section>
+    <h4>Other Transformation Operators</h4>
+    <ul>
+        <li>pairwise =></li>
+        <li>pluck(...stringPropertyName) => Like map, but meant only for picking one of the nested properties of every emitted
+            object
+            <a href="//jsfiddle.net/btroncone/n592m597/" target="_blank">here</a>
+        </li>
+        <li>mapTo(value) => Like map, but it maps every source value to the same output value every time
+            <a href="//jsfiddle.net/btroncone/52fqL4nn/"
+                target="_blank">here</a>
+        </li>
+        <br>
+        <li>expand</li>
+        <li>groupBy(selectorFunction) => groups the items emitted by an Observable according to a specified criterion, and emits
+            these grouped items as GroupedObservables
+            <a href="//jsfiddle.net/btroncone/utncxxvf/" target="_blank">here</a>
+        </li>
+        <li>partition(predicateFunction) => It's like filter, but returns two Observables: one like the output of filter, and
+            the other with values that did not pass the condition
+            <a href="//jsfiddle.net/btroncone/q0xo7gvv/" target="_blank">here</a>
+        </li>
+        <br>
+        <li>window(predicateObservable) => It's like buffer, but emits a nested Observable instead of an array </li>
+        <li>windowCount(number) => It's like bufferCount, but emits a nested Observable instead of an array</li>
+        <li>windowToggle() => It's like bufferToggle, but emits a nested Observable instead of an array</li>
+        <li>windowTime(periodNumber) => It's like bufferTime, but emits a nested Observable instead of an array</li>
+        <li>windowWhen(predicateFunction) => It's like bufferWhen, but emits a nested Observable instead of an array</li>
     </ul>
 </section>
