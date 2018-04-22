@@ -66,8 +66,7 @@
             clicks$.debounce(() => Rx.Observable.interval(1000))
                 .map((ev)=> ev.clientX)
         </code></pre>
-    <iframe src="https://giphy.com/embed/" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-
+    <iframe src="https://giphy.com/embed/42ylm7n9CgbcyGlEEP" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     <blockquote>It's like debounceTime, but the time span of emission silence is determined by a second Observable</blockquote>
 </section>
 <section>
@@ -96,7 +95,7 @@
         //throttle for 2 seconds, emit latest value
         source$.throttle(val => Rx.Observable.timer(2000))
     </code></pre>
-    <iframe src="https://giphy.com/embed/" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    <iframe src="https://giphy.com/embed/fRaBQ1XAxStfrFevl5" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     <blockquote>It's like throttleTime, but the silencing duration is determined by a second Observable</blockquote>
 </section>
 <section>

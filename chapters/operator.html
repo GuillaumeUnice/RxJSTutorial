@@ -12,27 +12,31 @@ logic, the building blocks of your solution, should be done using pure functions
 much as possible.-->
     <h3>Operator type</h3>
     <ul>
-        <li>Creator Operator *</li><!--*-->
-        <li>Transforming Operator *</li>
-        <li>Filtering Operator *</li>
-        <li>Combining Operator *</li><!--*-->
+        <li>Creator Operator</li><!--*-->
+        <li>Transforming Operator</li>
+        <li>Filtering Operator</li>
+        <li>Combining Operator</li><!--*-->
         <li>Conditional &amp Boolean Operator</li>
         <li>Mathematical &amp Aggregate Operator</li>
-        <li>Error Handling Operator *</li><!--*-->
-        <li>Utility/Tool Operator (like do() or tap()) *</li>
+        <li>Error Handling Operator</li><!--*-->
+        <li>Utility/Tool Operator (like do() or tap())</li>
         <li>Multicasting Operator</li>
     </ul>
 </section>
 <section>
-    <h4>Static /Observable methods / Observable factory VS instance/Observable instance methods</h4>
-    The static methods are defined directly on the Rx.Observable object and are not part of the object’s proto- type. These are
+    <h2>Static / Observable methods / Observable factory <br>VS<br> instance/Observable instance methods</h2>
+    <ul>
+        <li>Static => Initiate Producer (Creator &amp; Combination Operator)</li>
+        <li>Instance => Pipeline Operation</li>
+    </ul>
+    <!-- The static methods are defined directly on the Rx.Observable object and are not part of the object’s proto- type. These are
     typically used for initiating the declaration of an observable instance, for example, Rx.Observable.interval(500).
     BASICALLY static mehtods for Creator Operator & some Combining Operators On the other side : The observable instance
     methods are included in the object’s prototype and are used as members of the chained pipeline after you’ve initiated
-    an observable declaration.
+    an observable declaration. -->
 </section>
 <section>
-    <h4>Core/Common/Main Operator</h4>
+    <h2>Core/Common/Main Operator</h2>
     <ul>
         <li>map</li>
         <li>filter</li>
@@ -41,9 +45,9 @@ much as possible.-->
 </section>
 
 <section>
-    <h4>Map Operator</h4>
+    <h2>Map Operator</h2>
     <!-- <p>Applies a given project function to each value emitted by the source Observable, and emits the resulting values as an Observable</p> -->
-    <pre><code class="hljs"  data-trim contenteditable>
+    <pre><code class="js"  data-trim contenteditable>
             Rx.Observable.fromEvent(document, 'click')
             .map(ev => ev.clientX)
         </code></pre>
@@ -53,9 +57,9 @@ much as possible.-->
 </section>
 
 <section>
-    <h4>Filter Operator</h4>
+    <h2>Filter Operator</h2>
     <!-- <p>Filter items emitted by the source Observable by only emitting those that satisfy a specified predicate.</p> -->
-    <pre><code class="hljs"  data-trim contenteditable>
+    <pre><code class="js"  data-trim contenteditable>
             Rx.Observable.timer(0, 1000)
             .filter(x => x % 2 === 0)
         </code></pre>
@@ -64,9 +68,9 @@ much as possible.-->
 </section>
 
 <section>
-    <h4>Reduce Operator</h4>
+    <h2>Reduce Operator</h2>
     <!-- <p>Applies an accumulator function over the source Observable, and returns the accumulated result when the source completes, given an optional seed value.</p> -->
-    <pre><code class="hljs"  data-trim contenteditable>
+    <pre><code class="js"  data-trim contenteditable>
                 Rx.Observable.timer(0, 1000)
                 .take(6)
               .reduce((acc, cur) => acc += cur, 0)
@@ -77,14 +81,8 @@ much as possible.-->
         value into the accumulation from the past</blockquote>
 </section>
 <section>
-    <h4>Scan Operators</h4>
+    <h2>Scan Operators</h2>
     <!-- <p>Applies an accumulator function over the source Observable, and returns each intermediate result, with an optional seed value</p> -->
     <iframe src="https://giphy.com/embed/pVUSiUQ2wzFn28OSBl" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     <blockquote>It's like reduce, but emits the current accumulation whenever the source emits a value</blockquote>
 </section>
-<!--Exercice implement the reverseFilter Operator through create Cf listing 3.6-->
-<!--Exercice obtains square sum of 5 first even number-->
-<!--Count the number of 'T' letter from a text-->
-<!--Make exercice like that's it's a little easy because one part of the exercice is already done
-formulate WHAT we want in a soft programming you have to do that shift by yourself
-But be used to see this approach can only help to adopt it-->
