@@ -1,45 +1,24 @@
 <section>
-    <h4>Transformation Operators</h4>
+    <h2>Transformation Operators</h2>
     <ul>
         <li>map</li>
         <br>
+        <li style="color: red">mergeMap</li>
+        <li style="color: red">concatMap</li>
+        <li style="color: red">switchMap</li>
+        <li style="color: red">exhaustMap</li>
+        <br>
         <li>buffer</li>
+        <li>bufferWhen</li>
         <li>bufferCount</li>
         <li>bufferTime</li>
         <li>bufferToggle</li>
-        <li>bufferWhen</li>
-        <br>
-        <!--TODO: higher-order observable-->
-        <li>mergeMap</li>
-        <li>concatMap</li>
-        <li>switchMap</li>
-        <li>exhaustMap</li>
-        <br>
-        <li>mapTo</li>
     </ul>
 </section>
-<section>
-    <h4>Buffering</h4>
-    <p>Streams are stateless and don’t store any data nevertheless, sometimes useful to be able to temporarily cache some events
-        and throw a batch of them</p>
-    <img src="images/buffering.png" width="400" style="border: none;" alt="Buffer schema" />
-    <ul>
-        <li>buffer(predicateObservable)</li>
-        <li>bufferCount(number)</li>
-        <li>bufferTime(periodNumber)</li>
-        <li>bufferToggle()</li>
-        <li>bufferWhen(predicateFunction)</li>
-    </ul>
-</section>
-<section>
-    <h4>Buffer Operator</h4>
-
-</section>
-
-<section>
+<!-- <section>
     <h2>Observable as a Monad!</h2>
     <img src="images/nested_observable.png" width="400" style="border: none;" alt="Nested Observable schema" />
-</section>
+</section> -->
 <section>
     <h2>MergeMap Operator</h2>
     <p style="font-size: 0.75em">Named flatMap Operator on RxJS > 5.X</p>
@@ -48,42 +27,63 @@
         clicks$.mergeMap((ev) => Rx.Observable.interval(1000))
     </code></pre>
     <iframe src="https://giphy.com/embed/uV6qjsjkzzcnoFQF1j" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-    <blockquote></blockquote>
+    <blockquote>Maps each value to an Observable, then flattens all of these inner Observables using mergeAll</blockquote>
+    <aside>
+        On old article named flatMap()  (RxJS 4.X <=)
+    </aside>
+</section>
+<section>
+    <h2>concatMap Operator</h2>
+    <pre><code class="js"  data-trim contenteditable>
+                const clicks$ = Rx.Observable.fromEvent(document, 'click')
+                clicks$.concatMap((ev) => Rx.Observable.interval(1000).take(5))
+        </code></pre>
+    <iframe src="https://giphy.com/embed/" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    <blockquote>Maps each value to an Observable, then flattens all of these inner Observables using concatAll</blockquote>
+    <aside class="notes">
+        - stock in a Buffer each Observable and play in order one after another
+    </aside>
+</section>
+<section>
+    <h2>switchMap</h2>
+    <pre><code class="js"  data-trim contenteditable>
+            const clicks$ = Rx.Observable.fromEvent(document, 'click')
+            clicks$.switchMap((ev) => Rx.Observable.interval(1000).take(5))
+    </code></pre>
+    <iframe src="https://giphy.com/embed/5nsfoSeaaQ6xdJaQxN" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+
+    <blockquote>Map to observable, complete previous inner observable, emit values || Maps each value to an Observable, then flattens
+        all of these inner Observables using switch</blockquote>
 </section>
 <section>
     <h2>ExhaustMap Operator</h2>
     <pre><code class="js"  data-trim contenteditable>
-            const clicks$ = Rx.Observable.fromEvent(document, 'click')
-            clicks$.exhaustMap((ev) => Rx.Observable.interval(1000).take(5))
-    </code></pre>
+                const clicks$ = Rx.Observable.fromEvent(document, 'click')
+                clicks$.exhaustMap((ev) => Rx.Observable.interval(1000).take(5))
+        </code></pre>
     <iframe src="https://giphy.com/embed/NTgaF9Pv2JHqrnmrTg" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-    <blockquote></blockquote>
+    <blockquote>Maps each value to an Observable, then flattens all of these inner Observables using exhaust || Map to inner observable,
+        ignore other values until that observable completes</blockquote>
+    <aside class="notes">
+        - Like a concatMap which eliminate instead of stock in a Buffer each Observable. - Good solution to implement NGRX effects
+        which prevent user trig new action before the first finished
+    </aside>
 </section>
 <section>
-    <h2>switchMap</h2>
-    <iframe src="https://giphy.com/embed/5nsfoSeaaQ6xdJaQxN" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-
-    <blockquote></blockquote>
-</section>
-<section>
-    <h2>exhaustMap</h2>
-
-    <blockquote>Maps each value to an Observable, then flattens all of these inner Observables using exhaust</blockquote>
-</section>
-<section>
-    <h4>Other Transformation Operators</h4>
-    <ul>
-        <li>pairwise =></li>
+    <h2>Other Transformation Operators</h2>
+    <ul style="font-size: 0.75em">
+        <li>pairwise => Emit the previous and current values as an array
+            <a href="//jsfiddle.net/btroncone/8va47bq3/" target="_blank">here</a>
+        </li>
         <li>pluck(...stringPropertyName) => Like map, but meant only for picking one of the nested properties of every emitted
             object
             <a href="//jsfiddle.net/btroncone/n592m597/" target="_blank">here</a>
         </li>
         <li>mapTo(value) => Like map, but it maps every source value to the same output value every time
-            <a href="//jsfiddle.net/btroncone/52fqL4nn/"
-                target="_blank">here</a>
+            <a href="//jsfiddle.net/btroncone/52fqL4nn/" target="_blank">here</a>
         </li>
         <br>
-        <li>expand</li>
+        <li>expand => Recursively call provided function</li>
         <li>groupBy(selectorFunction) => groups the items emitted by an Observable according to a specified criterion, and emits
             these grouped items as GroupedObservables
             <a href="//jsfiddle.net/btroncone/utncxxvf/" target="_blank">here</a>
@@ -99,4 +99,7 @@
         <li>windowTime(periodNumber) => It's like bufferTime, but emits a nested Observable instead of an array</li>
         <li>windowWhen(predicateFunction) => It's like bufferWhen, but emits a nested Observable instead of an array</li>
     </ul>
+    <aside class="notes">
+        - pairwise: Pretty much like Buffer
+    </aside>
 </section>

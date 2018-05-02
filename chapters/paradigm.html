@@ -40,6 +40,11 @@
         <strong>what</strong> and not the
         <strong>how</strong> of what you’re trying to accomplish
     </p>
+    <aside class="notes">
+        -Concretly How we are more close with the computer science implementation and problematic
+        -Wheras What mathematical way
+        => Nowadays, possible thanks to performance improvment (hardware limitation, latency) but also concept introduction (memoization, Immutable Data Structure)
+	</aside>
 </section>
 <section>
     <h2>RxJS Principles &amp; Mindset</h2>
@@ -58,6 +63,44 @@
 <section>
     <h2>Functional Programming Principles &amp; Mindset</h2>
     <img src="images/functional_programming.png" style="border: none;" alt="functional programming listed principle" />
+    <aside class="notes">
+        1- First-Class Function: Function like Object (assignable inside in a variable)
+        2- Higher Order Function: function's parameter and return (that's why callback are available)
+        3- Immutable Data: Only primitive variable by defaut => We have to erase each variable
+        4- Recursion: call same function => tail recursion optimisation TODO: see Graf article
+        consist to replace a stack empilement call par un simple appelle fonction
+        Ainsi le compilateur est capable de le transformer en iteratif en réappelant et écrasant la même fonction juste modifiant les arguments
+
+        Pour cela utiliser un accumulteur et retourner seulement la fonction ou l'accumulteur pour la condition de sortie.
+
+        const fact = (n) => {
+            if(n == 0) return 1
+            return n*fact(n-1)
+        }
+        ///////////////////////////////////////////////////////////
+        const fact = (n) => {
+            const factIntern = (n, acc) => {
+                if(n > 0) return fact(n-1, n*acc)
+                else return acc
+            }
+            return factIntern(n, 1)
+        }
+
+        const fib = (n) => {
+            if(n <= 1) return 1
+            return fib(n-1) + fib(n-2)
+        }
+        ///////////////////////////////////////////////////////////////////
+        const fib = (n, a = 1, b = 0) => {
+            if(n === 0) return a
+            return fib(n-1, a+b, a)
+        }
+
+        5- Functor: Data type which can project a function inside each element in a specific context by flattening this context
+        6- Lazy Evaluation: compute code at last time need to be print => reason on infite set apply set theory thinking
+        7-Pure function: deterministic (same I => same O) => Function without random or other side-effect outside
+        8- Monad: Data type which can flatten before project a function inside each element in a specific context double flattening
+	</aside>
 </section>
 <section>
     <h2>Reactive Programming Principles &amp; Mindset</h2>
@@ -65,7 +108,7 @@
     <img src="images/reactive_programming.png" width="400" style="border: none;" alt="Excel example to demonstrate reactive programming mindset"
     />
     <!-- Certainly, asynchronous functions allow us to stay responsive, but they come at a price. Where synchronous programs
-    allow us to reason directly about the state of the appli- cation, asynchronous code forces us to reason about its future
+    allow us to reason directly about the state of the application, asynchronous code forces us to reason about its future
     state. -->
     <pre><code class="js"  data-trim contenteditable>
         stream1$ = [1];
@@ -80,6 +123,10 @@
     <blockquote>
         A stream is FRP => FP with steroids!!!
     </blockquote>
+    <aside class="notes">
+        -FRP control reactivity power
+        -parallal 90's OOP vs procedural
+	</aside>
 </section>
 <section>
     <h2>Current common Type solution</h2>
@@ -104,6 +151,11 @@
             </tr>
         </tbody>
     </table>
+
+    <aside class="notes">
+        -Synchronous step-by-step
+        -Asynchronous thinking about future and callback
+	</aside>
 </section>
 <section>
         <h2>"Once upon a time... Asynchronous"</h2>
@@ -120,6 +172,11 @@
         <a href="//latentflip.com/loupe/" target="_blank">Here</a>
     </p>
     <p><a href="//www.youtube.com/watch?v=8aGhZQkoFbQ" target="_blank">Video</a></p>
+
+    <aside class="notes">
+        -JS monothreaded event-loop => each operation delegate to thread system #webAPI
+        => result come back callback queue
+	</aside>
 </section>
 <section>
         <h2>"Fin"</h2>
@@ -140,6 +197,10 @@
             });
         </code></pre>
     <blockquote>Horizontally nested calls => "Callback Hell"</blockquote>
+    <aside class="notes">
+        -Inversion of Controle
+        -BUT Callback Hell
+	</aside>
 </section>
 
 <!-- <section>
@@ -178,18 +239,27 @@
         </code></pre>
     <img src="images/promise_schema.png" width="400" style="border: none;" alt="Promise schema" />
     <blockquote>Promise returns an immutable, <span style="color: red">single postponed</span> cached value</blockquote>
+    <aside class="notes">
+        -New ES6 standard Promise => Functor even Monad like Haskell's Maybe | Java's Optionnal
+        -Syntaxic sugar really important chained future result => just subscribe to an .then() .catch() to manage all the stuff
+	</aside>
 </section>
 
 <section>
     <h4>Promise drawbacks!</h4>
-    <!--TODO: Add Netflix video-->
-    <ul>
+     <ul>
         <li>Manage only one value (not like mouse event or sequence of bytes in a file stream => no repeatable/retriable)</li>
         <li>Once run/trig couldn't be cancelled</li>
     </ul>
     <!-- But what you really need is a solution that abstracts out the notion of latency away from your code while allowing you to
         model your solutions using a linear sequence of steps through which data can flow over time -->
-</section>
+        <aside class="notes">
+            -Guaranteed Future (=> No Cancellation)
+            -Single Value (=> Only Ajax purpose)
+            => No WS, DOM data event managed
+            => We have to find a way in order to manage a stream of data.
+        </aside>
+    </section>
 </section>
 
 <!-- <section>
@@ -222,8 +292,11 @@
             </tr>
         </tbody>
     </table>
-    <!-- <p>TODO: Emitted, Static &amp; Generated Data => page 44</p> -->
+    <!-- <p>DOC: Emitted, Static &amp; Generated Data => page 44</p> -->
     <img src="images/stream.jpeg" width="350" style="border: none;" alt="Everything is a Stream meme" />
+    <aside class="notes">
+        -uniformise data representation => FP + OOP DP Observer &amp; DP
+    </aside>
 </section>
 
 <section>
@@ -241,7 +314,7 @@
 </section>
 <section>
     <h2>Iterator</h2>
-    <!-- TODO:
+    <!-- DOC:
         https://addyosmani.com/resources/essentialjsdesignpatterns/book/#iteratorpatternjquery
         http://www.dofactory.com/javascript/iterator-design-pattern
         https://scotch.io/bar-talk/4-javascript-design-patterns-you-should-know#observer-design-pattern

@@ -1,0 +1,98 @@
+<section>
+    <h2>Transformation Operators part II</h2>
+    <ul>
+        <li>map</li>
+        <br>
+        <li>mergeMap</li>
+        <li>concatMap</li>
+        <li>switchMap</li>
+        <li>exhaustMap</li>
+        <br>
+        <li style="color: red">buffer</li>
+        <li style="color: red">bufferWhen</li>
+        <li style="color: red">bufferCount</li>
+        <li style="color: red">bufferTime</li>
+        <li style="color: red">bufferToggle</li>
+    </ul>
+</section>
+<section>
+    <h2>Buffering</h2>
+    <p>Streams are stateless and don’t store any data nevertheless, sometimes useful to be able to temporarily cache some events
+        and throw a batch of them</p>
+    <img src="images/buffering.png" width="700" style="border: none;" alt="Buffer schema" />
+    <ul style="font-size: 0.75em">
+        <li>buffer(predicateObservable)</li>
+        <li>bufferWhen(predicateFunction)</li>
+        <li>bufferCount(number)</li>
+        <li>bufferTime(periodNumber)</li>
+        <li>bufferToggle(openingObservable, closingFunction: Observable)</li>
+    </ul>
+</section>
+<section>
+    <h2>Buffer Operator</h2>
+    <pre><code class="js"  data-trim contenteditable>
+            const interval$ = Rx.Observable.interval(2000)
+            const bufferBy$ = Rx.Observable.fromEvent(document, 'click')
+            interval$.buffer(bufferBy$)
+    </code></pre>
+    <iframe src="https://giphy.com/embed/" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+
+    <blockquote>Collects values from the past as an array, and emits that array only when another Observable emits | Collect output values
+        until provided observable emits, emit as array</blockquote>
+</section>
+<section>
+    <h2>BufferWhen Operator</h2>
+    <pre><code class="js"  data-trim contenteditable>
+                const interval$ = Rx.Observable.interval(2000)
+                const bufferBy$ = () => Rx.Observable.fromEvent(document, 'click')
+                interval$.bufferWhen(bufferBy$)
+        </code></pre>
+    <iframe src="https://giphy.com/embed/" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+
+    <blockquote>Collects values from the past as an array. When it starts collecting values, it calls a function that returns an Observable
+        that tells when to close the buffer and restart collecting</blockquote>
+    <aside class="notes">
+        - BufferWhen + Race (with Observable.fromEvent('onBeforeLoad') + Observable.interval) => best solution to batch properly
+        user navigation proof
+    </aside>
+</section>
+<section>
+    <h2>BufferCount Operator</h2>
+    <pre><code class="js"  data-trim contenteditable>
+            const interval$ = Rx.Observable.interval(1000)
+            //After three values are emitted, pass on as an array of buffered values
+            interval$.bufferCount(3)
+        </code></pre>
+    <iframe src="https://giphy.com/embed/" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+
+    <blockquote>Collect emitted values until provided number is fulfilled, emit as array</blockquote>
+</section>
+<section>
+    <h2>BufferTime Operator</h2>
+    <pre><code class="js"  data-trim contenteditable>
+            const interval$ = Rx.Observable.interval(1000)
+            //After two seconds, emit buffered values as an array
+            interval$.bufferTime(2000)
+            </code></pre>
+    <iframe src="https://giphy.com/embed/" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+
+    <blockquote>Collects values from the past as an array, and emits those arrays periodically in time</blockquote>
+</section>
+<section>
+    <h2>BufferToggle Operator</h2>
+    <pre><code class="js"  data-trim contenteditable>
+        const sourceInterval$ = Rx.Observable.interval(1000)
+
+        const startInterval$ = Rx.Observable.interval(5000)
+        // val will be the startInterval$ value emitted
+        const closingInterval$ = (val) => Rx.Observable.interval(1000)
+        //every 5s a new buffer will start, collecting emitted values for 1s then emitting buffered values
+        sourceInterval$.bufferToggle(
+            startInterval$,
+            closingInterval$
+            )
+    </code></pre>
+    <iframe src="https://giphy.com/embed/" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+
+    <blockquote>Collects values from the past as an array. Starts collecting only when opening emits, and calls the closingSelector function to get an Observable that tells when to close the buffer</blockquote>
+</section>

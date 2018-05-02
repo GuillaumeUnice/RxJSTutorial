@@ -1,39 +1,43 @@
 <section>
-    <h3>Operators introduction API</h3>
-    <p></p>
-</section>
-<section>
-    <!--An operator is a small piece of declarative functionality that allows you to inject
-logic into an observable’s pipeline. An operator is a pure, higher-order function as
-well, which means it never changes the observable object it’s operating under (called
-the source), but rather it returns a new observable that continues the chain. FP best
-practices come into play at this point because the functions composing your business
-logic, the building blocks of your solution, should be done using pure functions as
-much as possible.-->
     <h3>Operator type</h3>
     <ul>
-        <li>Creator Operator</li><!--*-->
+        <li>Creator Operator</li>
+        <!--*-->
         <li>Transforming Operator</li>
         <li>Filtering Operator</li>
-        <li>Combining Operator</li><!--*-->
+        <li>Combining Operator</li>
+        <!--*-->
         <li>Conditional &amp Boolean Operator</li>
         <li>Mathematical &amp Aggregate Operator</li>
-        <li>Error Handling Operator</li><!--*-->
+        <li>Error Handling Operator</li>
+        <!--*-->
         <li>Utility/Tool Operator (like do() or tap())</li>
         <li>Multicasting Operator</li>
     </ul>
+    <aside class="notes">
+        -source Observable => emit Observable (higher-order function) -no mute current Observable but do something on value inside
+        an Observable context => Functor -Even inside an Observable of Observable => Monad
+    </aside>
 </section>
 <section>
-    <h2>Static / Observable methods / Observable factory <br>VS<br> instance/Observable instance methods</h2>
+    <h3>Operator Optimization</h3>
+
+    <aside class="notes">
+        - Same data reference through Observables => not like plain vanilla Array prototype method - New set of data each Observer
+        Subscription
+    </aside>
+</section>
+<section>
+    <h2>Static|Observable methods / Observable factory
+        <br>VS
+        <br> Instance methods / Observable instance methods</h2>
     <ul>
         <li>Static => Initiate Producer (Creator &amp; Combination Operator)</li>
         <li>Instance => Pipeline Operation</li>
     </ul>
-    <!-- The static methods are defined directly on the Rx.Observable object and are not part of the object’s proto- type. These are
-    typically used for initiating the declaration of an observable instance, for example, Rx.Observable.interval(500).
-    BASICALLY static mehtods for Creator Operator & some Combining Operators On the other side : The observable instance
-    methods are included in the object’s prototype and are used as members of the chained pipeline after you’ve initiated
-    an observable declaration. -->
+    <aside class="notes">
+        - Static directly define inside Rx.Observable Object - Instance method define inside Observable prototype chain.
+    </aside>
 </section>
 <section>
     <h2>Core/Common/Main Operator</h2>
@@ -46,7 +50,6 @@ much as possible.-->
 
 <section>
     <h2>Map Operator</h2>
-    <!-- <p>Applies a given project function to each value emitted by the source Observable, and emits the resulting values as an Observable</p> -->
     <pre><code class="js"  data-trim contenteditable>
             Rx.Observable.fromEvent(document, 'click')
             .map(ev => ev.clientX)
@@ -54,22 +57,25 @@ much as possible.-->
     <iframe src="https://giphy.com/embed/7SHwcdWKQGHQqpElbv" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
 
     <blockquote>It passes each source value through a transformation function to get corresponding output values</blockquote>
+    <aside class="notes">
+        Applies a given project function to each value emitted by the source Observable, and emits the resulting values as an Observable
+    </aside>
 </section>
 
 <section>
     <h2>Filter Operator</h2>
-    <!-- <p>Filter items emitted by the source Observable by only emitting those that satisfy a specified predicate.</p> -->
     <pre><code class="js"  data-trim contenteditable>
             Rx.Observable.timer(0, 1000)
             .filter(x => x % 2 === 0)
         </code></pre>
     <iframe src="https://giphy.com/embed/fQPSQ6Va1v9kmstsnb" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     <blockquote>It only emits a value from the source if it passes a criterion function</blockquote>
+    <aside class="notes">
+        Filter items emitted by the source Observable by only emitting those that satisfy a specified predicate
+    </aside>
 </section>
-
 <section>
     <h2>Reduce Operator</h2>
-    <!-- <p>Applies an accumulator function over the source Observable, and returns the accumulated result when the source completes, given an optional seed value.</p> -->
     <pre><code class="js"  data-trim contenteditable>
                 Rx.Observable.timer(0, 1000)
                 .take(6)
@@ -77,12 +83,20 @@ much as possible.-->
             </code></pre>
     <iframe src="https://giphy.com/embed/RI4JxoQzejbhANMYqi" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     <iframe src="https://giphy.com/embed/pzr4yV0NrCGvLE6cb4" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-    <blockquote>Combines together all values emitted on the source, using an accumulator function that knows how to join a new source
-        value into the accumulation from the past</blockquote>
+    <blockquote>
+        Combines together all values emitted on the source, using an accumulator function that knows how to join a new source value
+        into the accumulation from the past
+    </blockquote>
+    <aside class="notes">
+        Applies an accumulator function over the source Observable, and returns the accumulated result when the source completes,
+        given an optional seed value
+    </aside>
 </section>
 <section>
     <h2>Scan Operators</h2>
-    <!-- <p>Applies an accumulator function over the source Observable, and returns each intermediate result, with an optional seed value</p> -->
     <iframe src="https://giphy.com/embed/pVUSiUQ2wzFn28OSBl" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     <blockquote>It's like reduce, but emits the current accumulation whenever the source emits a value</blockquote>
+    <aside class="notes">
+        Applies an accumulator function over the source Observable, and returns each intermediate result, with an optional seed value
+    </aside>
 </section>

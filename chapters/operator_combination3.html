@@ -22,10 +22,16 @@
     </ul>
 </section>
 <section>
-    <h2>Monad Principle</h2>
-    <p>Additional logic under the hood to compress the inner observable back into a single observable structure</p>
-    <p>Converts a higher-order Observable into a first-order Observable which concurrently delivers all values that are emitted
-        on the inner Observables and applying a combination strategy (merge, concat)</p>
+    <h2>Observable as Monad!</h2>
+    <blockquote>
+        Additional logic under the hood to compress the inner observable back into a single observable structure
+        <span  style="position: absolute; right: 0; bottom: -20px; font-size: 0.5em">Paul P. Daniels &amp; Luis Atencio, RxJS in Action</span>
+    </blockquote>
+    <img src="images/nested_observable.png" width="400" style="border: none;" alt="Nested Observable schema" />
+    <blockquote>
+        Converts a higher-order Observable into a first-order Observable which concurrently delivers all values that are emitted on the inner Observables and applying a combination strategy (merge, concat)
+        <span  style="position: absolute; right: 0; bottom: -20px; font-size: 0.5em">Paul P. Daniels &amp; Luis Atencio, RxJS in Action</span>
+    </blockquote>
 </section>
 <section>
     <h2>mergeAll Operator</h2>
@@ -57,8 +63,24 @@
 <section>
     <h2>zipAll Operator</h2>
     <pre><code class="js"  data-trim contenteditable>
+        const interval$ = Rx.Observable.interval(1000)
+        //when one inner observable completes no more values will be emitted
+        Rx.Observable.of( interval, interval.take(2))
+            .zipAll()
+        </code></pre>
+    <iframe src="https://giphy.com/embed/p3UpBnlcSest8ApaFW/" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    <pre style="font-size: 0.45em; margin: 0;"><code class="js"  data-trim contenteditable>
+            let age$ = Rx.Observable.of(27, 25, 29)
+            let name$ = Rx.Observable.of('Foo', 'Bar', 'Beer')
+            let isDev$ = Rx.Observable.of(true, true, false)
+            // Here we compute the created value through a function in last parameter
+            Rx.Observable.of(age$, name$, isDev$)
+                .zipAll()
+                .delay(3000)
+        </code></pre>
+    <iframe src="https://giphy.com/embed/NS69RN2zKkGTwpYFvS" width="300" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    <blockquote style="font-size: 0.75em">
+        Combines multiple Observables value from an Observable of Observable to create an Observable whose values are calculated from the values, in order, of each input Observables
+    </blockquote>
 
-            </code></pre>
-    <iframe src="https://giphy.com/embed/" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-    <blockquote></blockquote>
 </section>

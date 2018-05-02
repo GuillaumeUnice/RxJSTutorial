@@ -24,7 +24,18 @@
 <section>
     <h2>combineLatest Operator</h2>
     <pre style="font-size: 0.5em"><code class="js"  data-trim contenteditable>
-
+        // synchronous behaviour
+        const s1$ = Rx.Observable.of(1, 2, 3, 4, 5, 6, 7, 8, 9);
+        const s2$ = Rx.Observable.of('a', 'b', 'c', 'd', 'e');
+        Rx.Observable.combineLatest(s1$, s2$)
+            .delay(3000)
+    </code></pre>
+    <iframe src="https://giphy.com/embed/" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    <pre style="font-size: 0.5em"><code class="js"  data-trim contenteditable>
+        // Asynchronous behaviour
+        const interval = Rx.Observable.interval(1000)
+        Rx.Observable
+          .combineLatest( interval, interval.take(2))
     </code></pre>
     <iframe src="https://giphy.com/embed/" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     <blockquote>Whenever any input Observable emits a value, it computes a formula using the latest values from all the inputs, then emits the output of that formula || When any observable emits a value, emit the latest value from each</blockquote>
@@ -78,11 +89,12 @@ The zip() operator can be very useful in cases when you need to spread out a str
     </code></pre>
     <iframe src="https://giphy.com/embed/p3UpBnlcSest8ApaFW" width="300" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     <pre style="font-size: 0.45em; margin: 0;"><code class="js"  data-trim contenteditable>
-            let age$ = Rx.Observable.of(27, 25, 29);
-            let name$ = Rx.Observable.of('Foo', 'Bar', 'Beer');
-            let isDev$ = Rx.Observable.of(true, true, false);
+            const age$ = Rx.Observable.of(27, 25, 29)
+            const name$ = Rx.Observable.of('Foo', 'Bar', 'Beer')
+            const isDev$ = Rx.Observable.of(true, true, false)
             // Here we compute the created value through a function in last parameter
-            Rx.Observable.zip(age$, name$, isDev$, (age, name, isDev) => ({ age, name, isDev }))
+            Rx.Observable.of(age$, name$, isDev$)
+                zipAll((age, name, isDev) => ({ age, name, isDev }))
                 .delay(3000)
         </code></pre>
     <iframe src="https://giphy.com/embed/NS69RN2zKkGTwpYFvS" width="300" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
@@ -90,6 +102,9 @@ The zip() operator can be very useful in cases when you need to spread out a str
         Combines multiple Observables to create an Observable whose values are calculated from the values, in order, of each of its input Observables
     </blockquote>
 </section>
+<aside class="notes">
+    Pretty much like zip Operator but on Observable of Observable so only intance method
+</aside>
 <section>
     <!-- Exercice explain: withLatestFrom => //jsfiddle.net/btroncone/0dLeksLe/ -->
     <h2>withLatestFrom Operator</h2>
@@ -104,15 +119,24 @@ The zip() operator can be very useful in cases when you need to spread out a str
 </section>
 <section>
     <h2>exhaust Operator</h2>
-    <iframe src="https://giphy.com/embed/" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-    <p></p>
-    <blockquote></blockquote>
+    <pre><code class="js"  data-trim contenteditable>
+        const clicks$ = Rx.Observable.fromEvent(document, 'click')
+        const higherOrder$ = clicks.map((ev) => Rx.Observable.interval(1000).take(5))
+        higherOrder$.exhaust()
+    </code></pre>
+    <iframe src="https://giphy.com/embed/NTgaF9Pv2JHqrnmrTg" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    <blockquote>Flattens an Observable-of-Observables by dropping the next inner Observables while the current inner is still executing</blockquote>
 </section>
 <section>
     <h2>Other Combination Operators</h2>
     <ul>
-        <li>combineAll</li>
-        <li>race</li>
-        <li>startWith</li>
+        <li>combineAll => Flattens an Observable-of-Observables by applying combineLatest when the Observable-of-Observables completes <a href="//jsfiddle.net/btroncone/pvj1nbLa/" target="_blank">here</a></li>
+        <li>race => The observable to emit first is used<a href="//jsfiddle.net/btroncone/8jcmb1ec/" target="_blank">here</a></li>
+        <li>startWith => Emit given value first  <a href="//jsfiddle.net/btroncone/ckcyj3ms/" target="_blank">here</a></li>
     </ul>
+    <aside class="notes">
+        - combineAll => Once the outer Observable completes, it subscribes to all collected Observables and combines their values using the combineLatest strategy <a href="//reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-combineAll" target="_blank">diagram</a>
+        - race => Returns an Observable that mirrors the first source Observable to emit an item from the combination of this Observable and supplied Observables
+        - startWith => Returns an Observable that emits the items you specify as arguments before it begins to emit items emitted by the source Observable
+    </aside>
 </section>
