@@ -64,14 +64,14 @@
         const stream2$ = Rx.Observable.of(1, 2, 3)
         stream1$.switch(stream2$)
     </code></pre>
-    <iframe src="https://giphy.com/embed/" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    <iframe src="https://giphy.com/embed/3j4IidvNsiFHoorNVc" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
 
     <pre style="font-size: 0.5em"><code class="js"  data-trim contenteditable>
         const clicks$ = Rx.Observable.fromEvent(document, 'click')
             .map((ev) => Rx.Observable.interval(1000))
         clicks$.switch()
     </code></pre>
-    <iframe src="https://giphy.com/embed/" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    <iframe src="https://giphy.com/embed/1YbvP2jVibyMNYKeaQ" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     <p>Flattens an Observable-of-Observables by dropping the previous inner Observable once a new one appears</p>
     <blockquote></blockquote>
     <aside class="notes">

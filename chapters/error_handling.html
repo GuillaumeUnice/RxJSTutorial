@@ -1,4 +1,4 @@
- <section>
+<section>
     <h3>Error Handling</h3>
     <ul>
         <li>catch</li>
@@ -13,133 +13,217 @@
     <h2>JavaScript Error Handling</h2>
     <ul>
         <li>Traditional Try/Catch => only synchronous problem</li>
-       <!--
-        -Can’t be composed or chained like other functional artifacts
-        -Violate the principle of pure functions that advocates a single, predictable value because throwing exceptions constitutes another exit path from your function calls
-       -Violate the principle of non-locality because the code used to recover from the error is distanced from the originating function call
-        -Are hard to use when multiple error conditions create nested levels of exception handling blocks
-    -->
         <li>Error Callback => Error no inversion of control</li>
         <li>Promise Catch function => catch chaining :class but not fine-tuned strategy</li>
-        <!--
-            Try dataType
-           - If an instance of Try<Record> represents a successful computation, it’s an instance of Success<Record> internally that’s used to continue the chain.
-            - If, on the other hand, it represents a computation in which an error has occurred, it’s an instance of Failure<Error> , wrapping an Error object or an exception.
-                <img src="images/promise_schema.png" width="400" style="border: none;" alt="Promise schema" />
-        -->
     </ul>
+
+    <aside class="notes">
+        Try/catch:
+        <ul>
+            <li>Can’t be composed or chained like other functional artifacts</li>
+            <li>Violate the principle of pure functions that advocates a single, predictable value because throwing exceptions
+                constitutes another exit path from your function calls</li>
+            <li>Violate the principle of non-locality because the code used to recover from the error is distanced from the originating
+                function call</li>
+            <li>Are hard to use when multiple error conditions create nested levels of exception handling blocks</li>
+        </ul>
+        Promise:
+        <ul>
+            <li>If an instance of Try"Record" represents a successful computation, it’s an instance of Success"Record" internally
+                that’s used to continue the chain</li>
+            <li>If, on the other hand, it represents a computation in which an error has occurred, it’s an instance of Failure"Error"
+                , wrapping an Error object or an exception</li>
+        </ul>
+        => CF Promise slide in Paradigm chapter
+    </aside>
 </section>
 <section>
-    <!--
-        In general, errors don’t escape the observable pipeline. They are contained and guarded to prevent side effects from happening
-    Errors that occur at the beginning of the stream or in the middle are propagated down to any observers, finally resulting in a call to error()
-
-   <strong> the first exception that fires will result in the entire stream being cancelled</strong>
-    -->
-
     <h2>Observable Error</h2>
+
+    <pre><code class="js"  data-trim contenteditable>
+        Rx.Observable.of('test', 'test error')
+        .map(str => {
+            if(str.includes(' ')) {
+                throw new Error(`Error trailing space: ${str}`)
+            }
+            return str;
+        })
+        .subscribe(
+            (res) => console.log(res),
+            (err) => console.log(`[Error]: ${err}`),
+            () => console.log('Observable completed!')
+        )
+    </code></pre>
+
+    <img src="images/error_handling/observable_error.png" width="600" style="border: none;" alt="Schema Observale error" />
+
+    <aside class="notes">
+        In general, errors don’t escape the observable pipeline. They are contained and guarded to prevent side effects from happening
+        <br> Errors that occur at the beginning of the stream or in the middle are propagated down to any observers, finally
+        resulting in a call to error()
+        <br>
+        <br>
+        <strong> the first exception that fires will result in the entire stream being cancelled</strong>
+        <br>
+        <br> Example trace: $ test $ [Error]: Error: Error trailing space: test error
+    </aside>
 </section>
 <section>
-    <!--
-Rx.Observable.of(2,4,5,8,10)
-.map(num => {
-    if(num % 2 !== 0) {
-    throw new Error(`Unexpected odd number: ${num}`);
-    }
-    return num;
-})
- .catch(err => Rx.Observable.of(6))
-
-.subscribe(
-    (next) => console.log(val),
-    (error) => console.log(`Caught: ${err}`),
-    () => console.log('All done!');
-)
-
- Even after the use of a catch that returns a default value the stream conttinues to be cancelled when the exception occurs,
-        However, some errors, might be intermittent and shouldn’t halt the stream.
-        For instance, a server is unavailable for a short period of time because of a planned outage. In cases like this, you may want to retry your failed operations
-
-Rx.Observable.of(2,4,5,8,10)
-.map(num => {
-        if(num % 2 !== 0) {
-        throw new Error(`Unexpected odd number: ${num}`);
-    }
-    return num;
-})
-.catch((err, source) => source) // Returning the original observable
-    -->
     <h2>Catch Operator</h2>
-    <p></p>
+    <pre style="font-size: 0.45em; margin: 0;"><code class="js" data-trim contenteditable>
+        Rx.Observable.of(2,3,4,6)
+        .map(num => {
+            if(num % 2 !== 0) {
+            throw new Error(`Unexpected odd number: ${num}`)
+            }
+            return num;
+        })
+        .catch(err => Rx.Observable.of(0))
+        .map(num => ++num)
+
+        .subscribe(
+            (res) => console.log(res),
+            (err) => console.log(`[Error]: ${err}`),
+            () => console.log('Observable completed!')
+        )
+    </code></pre>
+    <img src="images/error_handling/catch.png" width="400" style="border: none;" alt="Schema catch Observable Operator" />
+    <blockquote>Catches errors on the observable to be handled by returning a new observable or throwing an error</blockquote>
+
+    <aside class="notes">
+        First example trace: //$ 3 //$ 1 //$ Observable completed!
+        <br>
+        <br> Even after the use of a catch that returns a default value the stream continues to be cancelled when the exception
+        occurs
+        <br> However, some errors, might be intermittent and shouldn’t halt the stream
+        <br> For instance, a server is unavailable for a short period of time because of a planned outage. In cases like this,
+        you may want to retry your failed operations
+    </aside>
 </section>
 
 <section>
-        <h2>Retry Operator</h2>
-Rx.Observable.of(2,4,5,8,10)
-    .map(num => {
-        if(num % 2 !== 0) {
+    <h2>Retry Operator</h2>
+    <pre><code class="js" data-trim contenteditable>
+        Rx.Observable.of(2,3,4,6)
+        .map(num => {
+            if(num % 2 !== 0) {
             throw new Error(`Unexpected odd number: ${num}`)
-        }
-        return num
-    })
-    .retry(3)
-    .subscribe(
-        num => console.log(num),
-        err => console.log(err.message)
-    )
+            }
+            return num;
+        })
+        .map(num => ++num)
+        .catch((err) => Rx.Observable(0))
 
-    <!--
-        You could also elegantly combine the two approaches (retry then catch). You can reattempt the operation three more times and then catch the exception, to fall back to a default value
-    -->
-    </section>
+        .subscribe(
+            (res) => console.log(res),
+            (err) => console.log(`Caught: ${err}`),
+            () => console.log('Observable completed!')
+        )
+    </code></pre>
+    <blockquote style="font-size: 0.75em">
+        Returns an Observable that mirrors the source Observable with the exception of an error.
+        <br>
+        If the source Observable calls error, this method will resubscribe to the source Observable for a maximum of count resubscriptions (given as a number parameter) rather than propagating the error call
+    </blockquote>
+
+    <aside class="notes">
+        Multiple strategies just by compose our catch retry operator:
+        <ul>
+            <li>catch => next() -> complete() stop</li>
+            <li>retry => error() stop</li>
+            <li>retry then catch => next() -> complete() stop</li>
+        </ul>
+    </aside>
+</section>
 <section>
-    <!--
-        we don’t get second chances with Promise s
-        Solution: again creating a higher order observable
-    -->
     <h2>Promise Immutability</h2>
-    Because Promise s are not retriable artifacts, dereferencing the value of a Promise will always return its fulfilled value or error, as the case may be
+
+    <pre><code class="js" data-trim contenteditable>
+        mySource$
+            .switchMap((url) => callPromise(url)
+            .retry(3)
+    </code></pre>
+
+    <aside class="notes">
+        Don't forget we don’t get second chances with Promises due to the immutability principle
+        <br> Solution: again creating a higher order observable
+        <br>
+        <br> The code recreate a new Promise
+        <br>
+        <br> ??? Because Promises are not retriable artifacts, dereferencing the value of a Promise will always return its fulfilled
+        value or error, as the case may be
+    </aside>
 </section>
 <section>
     <h2>Backoff strategy</h2>
-    <!-- Using retries with backoff is an effective way to retry more times without overloading the server. Examples of a backoff strategy are constant, linear, exponential, and random
-(also known as jitter). The exponential and linear types are more commonly used, but in any case, the goal is to use progressively longer waits between retries for consecutive periods of time -->
-        <ul>
-            <li>No particular strategy => retry Operator</li>
-            <li>Linear backoff => retryWhen Operator</li>
-            <li>Exponential backoff => retryWhen Operator</li>
-        </ul>
-        <!--retryWhen img
-        it’s common to use timer observables to accomplish this
-        -->
+    <ul>
+        <li>No particular strategy => retry Operator</li>
+        <li>Linear backoff => retryWhen Operator</li>
+        <li>Exponential backoff => retryWhen Operator</li>
+    </ul>
 
-</section>
-<section>
-    <h2>Retry Operator</h2>
+    <aside class="notes">
+        Backoff is an effective way to retry more times without overloading the server.
+        <br> Backoff strategy:
+        <ul>
+            <li>constant</li>
+            <li>linear</li>
+            <li>exponential</li>
+            <li>random (aka jitter strategy)</li>
+        </ul>
+        The goal is to use progressively longer waits between retries for consecutive periods of time
+        <br>
+        exponential &amp; linear more commonly used
+        <br>
+        retryWhen Operator + Timer Observable => more common to accomplish a strategy
+    </aside>
 </section>
 <section>
     <h2>RetryWhen Operator</h2>
 
-    <pre style="font-size: 0.5em"><code class="js"  data-trim contenteditable>
-            .retryWhen(errors$ =>
-                Rx.Observable.range(1, maxRetries)
-                    .zip(errors$, (i, err) => ({'i': i, 'err': err}))
-                    .mergeMap(({i, err}) =>
-                        Rx.Observable.if(() => i <= maxRetries - 1,
-                            Rx.Observable.timer(i * 1000)
-                                .do(() => console.log(`Retrying after ${i} second(s)...`)),
-                            Rx.Observable.throw(err))
-                    )
-            )
-        </code></pre>
+    <pre style="font-size: 0.5em; margin: 0;"><code class="js"  data-trim contenteditable>
+        // linear backoff strategy
+        .retryWhen(errors$ =>
+            Rx.Observable.range(1, maxRetries)
+                .zip(errors$, (i, err) => ({'i': i, 'err': err}))
+                .mergeMap(({i, err}) =>
+                    Rx.Observable.if(() => i <= maxRetries - 1,
+                        Rx.Observable.timer(i * 1000)
+                            .do(() => console.log(`Retrying after ${i} second(s)...`)),
+                        Rx.Observable.throw(err))
+                )
+        )
+    </code></pre>
+    <img src="images/error_handling/retryWhen.png" width="400" style="border: none;" alt="Schema retryWhen Observable Operator" />
+    <blockquote style="font-size: 0.75em">
+        Returns an Observable that mirrors the source Observable with the exception of an error.
+        <br>
+        If the source Observable calls error, this method will emit the Throwable that caused the error to the Observable returned from notifier. If that Observable calls complete or error then this method will call complete or error on the child subscription. Otherwise this method will resubscribe to the source Observable.
+    </blockquote>
 </section>
 <section>
     <h2>Replay vs Subscribe</h2>
-    Replay the same stream in other words keep the same side effect value
-    Whereas, subscribe regenerate a new sequence
-    => Promise example
+    Replay the same stream in other words keep the same side effect value Whereas, subscribe regenerate a new sequence => Promise
+    example
 </section>
 <section>
     <h2>Finally Operator</h2>
 
+    <pre style="font-size: 0.5em"><code class="js"  data-trim contenteditable>
+        const source$ = Rx.Observable.of(1,2,3,4,5)
+        .finally(() => console.log('FINALLY'))
+
+        .subscribe(
+            (res) => console.log(res),
+            (err) => console.log(`[Error]: ${err}`),
+            () => console.log('Observable completed!')
+        )
+    </code></pre>
+
+    <blockquote>Returns an Observable that mirrors the source Observable, but will call a specified function when the source terminates on complete or error</blockquote>
+    <aside class="notes">
+        Using finally to clean up and cancel any outstanding streams
+        <br>
+        Be careful, finally is called at the same time complete() || error() Observer method
+    </aside>
 </section>
