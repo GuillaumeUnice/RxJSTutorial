@@ -6,47 +6,23 @@
         <br>
         <li>Publish Operator</li>
         <li>PublishReplay Operator</li>
-        <li>publishLast Operator</li>
-        <li>Multicast Operator</li>
+        <li>PublishLast Operator</li>
+        <!-- <li>Other Multicasting Operators</li> -->
     </ul>
 </section>
-
 <section>
-        <h2>Cold vs Hot</h2>
-        <table>
-                <thead>
-                    <tr style="color: rgb(233, 70, 70)">
-                        <th></th>
-                        <th>COLD</th>
-                        <th>HOT</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td style="color: rgb(70, 81, 233)">Manage Unsubscription</td>
-                        <td>True</td>
-                        <td>False (our responsability) liability => memory leak Only concern manual Multicasting operator not fromEvent or share()</td>
-                    </tr>
-                </tbody>
-            </table>
-    </section>
+    <h2>Share Operator</h2>
+    <p><a href="//jsfiddle.net/gw71ra1p/" target="_blank">Here</a></p>
+    <blockquote></blockquote>
+    <aside class="notes">
+        Here we unsubscribe and notice stream is well unsubscribe after all Observer subscription are removed
+        <br>
+        Thanks to the call of the Do Debug Operator wich introduce a side-effect just to displauy the trace
+    </aside>
+</section>
 <section>
     <h2>Publish Operator</h2>
-    <pre><code class="js"  data-trim contenteditable>
-            Rx.Observable.fromEvent(document, 'click')
-            .map(ev => ev.clientX)
-        </code></pre>
-    <pre style="font-size: 0.5em"><code class="js"  data-trim contenteditable>
-        const source$ = Rx.Observable.interval(1000)
-            .take(10)
-            const published$ = source$.publish()
-            published$.subscribe(createObserver('SubA'))
-            published$.subscribe(createObserver('SubB'))
-
-            // ...
-            published$.connect() //Can be invoked at any point after the call to publish() => in order to build the underlying subscription
-    </code></pre>
-
+    <p><a href="//jsfiddle.net/sdo44x24/" target="_blank">Here</a></p>
     <p>Publish return an ConnectableObservable</p>
     <pre style="font-size: 0.5em"><code class="js"  data-trim contenteditable>
         interface ConnectableObservable< T > extends Observable< T > {
@@ -55,36 +31,52 @@
         }
     </code></pre>
     <blockquote>Like a share Operator not garbage collected &amp; emits data after a call to connect()</blockquote>
-    <!--
-        -The connect() method returns a Subscription instance that represents the shared underlying subscription. Unsubscribing from it will result in both subscribers no longer receiving any events.
-        -The refCount() method is named after the garbage collection concept known as ref counting, or reference counting. The point is that it returns an observable sequence that stays connected to the source as long as there’s a least one active subscription. Does this sound familiar? It should because the share() operator we discussed a moment ago is little more than an alias for publish().refCount()
-    -->
+    <aside class="notes">
+        -The connect() method returns a Subscription instance that represents the shared underlying subscription. Unsubscribing from
+        it will result in both subscribers no longer receiving any events.
+        <p><a href="//jsfiddle.net/sdo44x24/1/" target="_blank">Here</a></p>
+        <br> -The refCount() method is named after the garbage collection concept known as ref counting, or reference counting.
+        The point is that it returns an observable sequence that stays connected to the source as long as there’s a least
+        one active subscription. Does this sound familiar? It should because the share() operator we discussed a moment ago
+        is little more than an alias for publish().refCount()
+    </aside>
 </section>
 <section>
     <h2>PublishReplay Operator</h2>
     <p>This operator uses several parameters to determine the characteristics of a buffer to maintain</p>
-    <pre style="font-size: 0.5em"><code class="js"  data-trim contenteditable>
-        </code></pre>
-    <iframe src="https://giphy.com/embed/" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-    <blockquote></blockquote>
-</section>
-<section>
-    <h2>Share Operator</h2>
-    <pre style="font-size: 0.5em"><code class="js"  data-trim contenteditable>
-            </code></pre>
-    <iframe src="https://giphy.com/embed/" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-    <blockquote></blockquote>
+    <p><a href="//jsfiddle.net/pcn2L8kb/" target="_blank">Here</a></p>
+    <blockquote>Like a publish Operator but emitted previous values from a certain Buffer side parameter for each Observer Subscription</blockquote>
 </section>
 <section>
     <h2>ShareReplay Operator</h2>
-    <pre style="font-size: 0.5em"><code class="js"  data-trim contenteditable>
-                </code></pre>
-    <iframe src="https://giphy.com/embed/" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-    <blockquote></blockquote>
+    <p><a href="//stackblitz.com/edit/svelte-g1uktq/" target="_blank">Here</a></p>
+    <blockquote>Like a share Operator but emitted previous values from a certain Buffer side parameter for each Observer Subscription</blockquote>
+</section>
+<section>
+    <h2>PublishLast Operator</h2>
+    <p><a href="http://jsfiddle.net/qj0vh2vr/" target="_blank">Here</a></p>
+    <blockquote>Like a Last Operator with Hot Observable Behaviour</blockquote>
 </section>
 <section>
     <h2>Other Multicasting Operators</h2>
 
     cache publishBehavior publishLast
+    <ul style="font-size: 0.75em">
+            <li>multicasting => Share source utilizing the provided Subject
+                <a href="//jsfiddle.net/btroncone/x2z7p1gm/" target="_blank">here</a>
+            </li>
+            <li>cache</li>
+            <li>publishBehaviour</li>
+            <li>multicast => Returns an Observable that emits the results of invoking a specified selector on items emitted by a ConnectableObservable that shares a single subscription to the underlying stream
+                <a href="//jsfiddle.net/btroncone/x2z7p1gm/" target="_blank">here</a></li>
+        </ul>
+        <aside class="notes">
+            - cache: <!-- TODO: -->
+            <!--
+                https://blog.thoughtram.io/angular/2018/03/05/advanced-caching-with-rxjs.html
+                https://stackoverflow.com/questions/41176489/rxjs-5-and-alternatives-to-the-cache-operator
+                https://blog.angularindepth.com/rxjs-understanding-the-publish-and-share-operators-16ea2f446635
+            -->
 
+        </aside>
 </section>

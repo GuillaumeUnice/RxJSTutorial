@@ -8,49 +8,62 @@ It helps to think of cold and hot Observables as movies or performances that one
 Cold Observables: movies.
 Hot Observables: live performances.
 Hot Observables replayed: live performances recorded on video.
-Whenever you watch a movie, your run of the movie is independent of anyone else's run, even though all movie watchers see the same effects. On the other hand, a live performance is shared to multiple viewers. If you arrive late to a live performance, you will simply miss some of it. However, if it was recorded on video (in RxJS this would happen with a BehaviorSubject or a ReplaySubject), you can watch a "movie" of the live performance. A .publish().refCount() live performance is one where the artists quit playing when no one is watching, and start playing again when there is at least one person in the audience.
+Whenever you watch a movie, your run of the movie is independent of anyone else's run, even though all movie watchers see the same effects.
+On the other hand, a live performance is shared to multiple viewers.
+ If you arrive late to a live performance, you will simply miss some of it.
+
+ However, if it was recorded on video (in RxJS this would happen with a BehaviorSubject or a ReplaySubject), you can watch a "movie" of the live performance. A .publish().refCount() live performance is one where the artists quit playing when no one is watching, and start playing again when there is at least one person in the audience.
 
     -->
-    <!--Whether an observable is hot or cold is partly related to the type of source that it’s wrapping-->
+
     <table>
-            <thead>
-                <tr style="color: rgb(233, 70, 70)">
-                    <th></th>
-                    <th>Single Value</th>
-                    <th>Multiple Value</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td style="color: rgb(70, 81, 233)">Synchronous</td>
-                    <td>COLD Observable</td>
-                    <td>COLD Observable</td>
-                </tr>
-                <tr>
-                    <td style="color: rgb(70, 81, 233)">Asynchronous</td>
-                    <td>COLD Observable (Ajax) | HOT Observable (Promise)</td>
-                    <td>HOT Observable</td>
-                </tr>
-            </tbody>
-        </table>
-        <p>We can categorize by native type behind but there is also the possibility to heat up a Cold Observable</p>
+        <thead>
+            <tr style="color: rgb(233, 70, 70)">
+                <th></th>
+                <th>Single Value</th>
+                <th>Multiple Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="color: rgb(70, 81, 233)">Synchronous</td>
+                <td>COLD Observable</td>
+                <td>COLD Observable</td>
+            </tr>
+            <tr>
+                <td style="color: rgb(70, 81, 233)">Asynchronous</td>
+                <td>COLD Observable (Ajax) | HOT Observable (Promise)</td>
+                <td>HOT Observable</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>We can categorize by native type behind but there is also the possibility to heat up a Cold Observable</p>
+    <aside class="notes">
+        Whether an observable is hot or cold is partly related to the type of source that it’s wrapping
+    </aside>
 </section>
 <section>
     <h2>Cold Observable</h2>
-    <p>These resources are known as passive in the sense that their declaration is independent of their execution. This also means that these observables are truly lazy in their creation and execution</p>
-    Being cold means that each new subscription is creating a new independent stream with a new starting point for that stream.
 
-    when creating a cold observable,you’re actually creating a plan or recipe to be executed later repeatedly, top to bottom
     <ul>
-    <li>Lazy Observable</li>
-    <li>Pure Function => referential transparency</li>
-    <li>Independent subscription</li>
+        <li>Lazy Observable</li>
+        <li>Pure Function => referential transparency</li>
+        <li>Independent subscription</li>
+    </ul>
+    <br>
+    <img src="images/cold_hot/cold_observable.png" width="400" style="border: none;" alt="Cold Observable schema" />
+    <aside class="notes">
+        - These resources are known as passive in the sense that their declaration is independent of their execution. This also means
+        that these observables are truly lazy in their creation and execution - Being cold means that each new subscription
+        is creating a new independent stream with a new starting point for that stream. - When creating a cold observable,you’re
+        actually creating a plan or recipe to be executed later repeatedly, top to bottom => Result no matter at what point
+        there is a n Observer subscription at a cold Observable, each Observer independently will observe same event (if
+        you respect the purity concept) => determinitic
+        <br> No data shared so purest solution
+        <!--With cold observables, all subscribers, no matter at what point the subscription occurred, will observe the same events.-->
+    </aside>
 
-</ul>
-
-
-<!--With cold observables, all subscribers, no matter at what point the subscription occurred, will observe the same events.-->
-<blockquote>Like a synchronous code behaviour</blockquote>
+    <blockquote>Like a synchronous code behaviour</blockquote>
 </section>
 <section>
     <h2>Hot Observable</h2>
@@ -64,12 +77,14 @@ which means it won’t reenact all the messages emitted upon subscription but me
         <li>Keep Lazy Observable data are ignored without subscription</li>
         <li>a hot observable shares the same subscription to all observers => Dependent subscription</li>
     </ul>
+    <img src="images/cold_hot/hot_observable.png" width="400" style="border: none;" alt="Cold Observable schema" />
+
     <!--Hot observables are those that produce events regardless of the presence of subscribers
     you-snooze-you-lose policy => which means you can’t replay the contents of a hot observable by resubscribing to it
     -->
     <blockquote>Like a asynchronous code behaviour</blockquote>
 
-    <!--In general, it’s better to use cold observables wherever possible because they’re inher-
+    <!-- In general, it’s better to use cold observables wherever possible because they’re inher-
 ently stateless. This means that each subscription is independent of every other sub-
 scription, so there’s less shared state to worry about, from an internal RxJS
 perspective, because you know a new stream is starting on every subscription.
@@ -77,73 +92,78 @@ perspective, because you know a new stream is starting on every subscription.
 But when you are inside our Observable we can consider from an RxJS perspective all kind of Observables keep pure!
 
 -->
+    <aside class="notes">
+        - Hot observables tend to receive only the events that are emitted after the subscription is created - New Subscription receive
+        ongoing sequence => no reenact/replay events already emitted just push event occured after subscription - Hot Observables
+        produce events regardless presence of subscribers => you-snooze-you-lose policy => which means you can’t replay the
+        contents of a hot observable by resubscribing to it - Cold stateless more FP compliant - Hot Observable not deterministic
+        so not pure from purist FP perspective => From RxJS perspective inside value inside Observable will produce same
+        result so we can consider Hot keep pure!
+    </aside>
 </section>
 
 <section>
-    <h2>Observale replay the pipeline can be considered like Hot</h2>
-    <p>TODO: Example fromPromise, the Promise is immutable/single-value and only replay so emit the same previous first result without recompute the pipeline</p>
-    <!--
-        const requestQuote$ = symbol =>
-            Rx.Observable.fromPromise(
-                ajax(webservice.replace(/\$symbol/, symbol)))
-            .retry(3)
-            .map(response => response.replace(/"/g, ''))
-            .map(csv);
-You might expect to retry a web request if it fails, resulting in up to four requests sent
-to the server before an error is finally served. But we mentioned a small caveat in that
-you may have then been surprised to see that the network debugger showed only a sin-
-gle request being executed. Why?
-    -->
-    <p>Solution wrap the Promise in a higher order Observable</p>
+    <h2>Replay vs Resubscribe</h2>
+
+    <p>Observable replay the pipeline can be considered like Hot events are buffered internally</p>
+    <p>Promise Hot usual caveat:
+        <a href="//jsfiddle.net/Echyzen/qp9fgvc0/" target="_blank">Here</a>
+    </p>
+    <p>
+        => Solution consist to wrap the [Fetch|XHR] in a higher order Observable:
+            <a href="//jsfiddle.net/Echyzen/na0agmu8/1/" target="_blank">Here</a>
+    </p>
+
+    <aside class="notes">
+        the Promise is immutable/single-value and only replay so emit the same previous first result without recompute the pipeline
+        <br>
+        <br> - Here a retry strategy is utterly useless
+        <br> => Solution consist to wrap the Fetch in another Observable which is by definition retriable
+        <br>
+        <a href="//jsfiddle.net/Echyzen/4zanwjut/" target="_blank">Solution Here</a>
+    </aside>
 </section>
 <section>
-    <h2></h2>
+    <h2>What's the temperature today?</h2>
+    <p>Temperature depends on:</p>
     <ul>
-        <li>Temperature depends on the data source which by design are cold or hot</li>
+        <li>The data source which by design are cold or hot</li>
+        <li>The context where data come from inside (cold) or outside (hot) Observable context</li>
     </ul>
-    <p>Control the temperature by wrapping or not the data source</p>
-    COLD is when your observable creates the producer.
-    HOT is when your observable closes over the producer.
-    => Ben Lesh on Medium
+    <p>=> Control the temperature by wrapping or not the data source</p>
 
-    <!--
-const cold$ = new Rx.Observable(observer => {
-    const producer = new Producer(); // The lifecycle of the producer entity (a generic object) is bound to that of the observable’
-    // ...Observer listens to producer,
-    // producer pushes events to the observer...
-    producer.addEventListener('some-event', e => observer.next(e));
-    return () => producer.dispose();
-});
-        The other implication is that anything that subscribes
-to cold$ will obtain its own copy of the producer object, as we’ve mentioned before.
-This one-to-one communication between a producer and a consumer (observer) is
-referred to as unicast.
-    -->
+    <blockquote>COLD is when your observable creates the producer.
+        <br> HOT is when your observable closes over the producer.
+        <br>
+        <span style="position: absolute; right: 0; bottom: -20px; font-size: 0.5em">Ben Lesh on Medium</span>
+    </blockquote>
 
-    In practice, when the producer resource is expensive to create, such as a remote
-HTTP call or a WebSocket, then sharing it is a smart thing to do. Let’s examine how to
-heat up observables to accomplish this.
+    <aside class="notes">
+        In practice, when the producer resource is expensive to create, such as a remote HTTP call or a WebSocket, then sharing it
+        is a smart thing to do.
+        <br> Let’s examine how to heat up observables to accomplish this. depends on how to place the activation of the producer
+        resource inside or outside the observable context
 
-depends on how to place the activation of the producer resource inside or outside the observable context
+        <br>
+        <br> COLD:
+        <br> A new Producer instance for each subscription => Unicast communication: 1 Producer => 1 Observer HOT:
+        <br> In this case, the lifecycle of the event emitter source is independent of that of the observable => Multicast communication:
+        1 Producer => X Observer
+    </aside>
 </section>
-<section>
-    <h2>Cool Down an Hot Observable</h2>
-    <p>Avoid the side effect by wrapping and instantiating a new (Promise, WebSocket) inside the "Producer" function</p>
+<section data-background-image="./images/cold_hot/fresh_wallpaper.jpg">
+    <h2>Cool Down Hot Observable</h2>
+    <p>Avoid the side effect by wrapping and instantiating a new [Promise|WebSocket] inside the "Producer" function</p>
+    <a href="//jsfiddle.net/Echyzen/dztkw6x1/" target="_blank">Here</a>
+
 </section>
 
-<section>
-    <h2>Warmth a Cold Observable</h2>
-
-    <!--
-
-        TODO: verify for share & publish operator
-
-        Observables that share subscriptions are generally called hot, whereas
-those that don’t are called cold. But there are also observables that start emit-
-ting events only after the first subscription (a quality seen only in cold observ-
-ables) and thereafter share their data to all subscribers (a hot quality). We
-sometimes refer to these observables as warm.
-    -->
+<section data-background-image="./images/cold_hot/warmth_wallpaper.jpg">
+    <h2>Heat Up Cold Observable</h2>
+    <p>
+        Outside the data source from the Producer.
+        <br> Decoupled the subscription from the activation of the event source
+    </p>
 
     <!--
         To make a cold observables hot, you need to focus on how they emit data and how subscribers access this data
@@ -152,19 +172,84 @@ sometimes refer to these observables as warm.
 
     Appendix in Angular Http Call are cold which means not like the fromPromise() behaviour
 -->
-    <p>Consist to outside the data source from the Producer. In other terms, The big difference here is that you’ve decou-
-        pled the subscription from the activation of the event source</p>
-        <!--Because of this decoupling, the observable is also removed from the life-
-cycle of the event source (that is, start() and stop() ), just like with WebSockets ear-
-lier. Thus, when all subscribers unsubscribe, the event emitter will continue to send
-data => it’s just that no one is there to listen-->
 
-Share Operator (hot-by-operator best way to heat up a cold Observable): This means that you can place this operator right after a set of operations whose results should be common
+    <pre><code class="js"  data-trim contenteditable>
+        const source$ = Rx.Observable.timer(0, 1000)
+            .take(10)
+            .do(num => {
+                console.log(`Running some code with ${num}`);
+            });
+            // Here stream become hot-by-operator
+            const shared$ = source$.share();
 
+            shared$.subscribe(myObserver('ObsA'));
+            shared$.subscribe(myObserver('ObsB'));
 
-<!--
-    Do Not use share with synchronous data source:
-    In basic terms, subscribing to a synchronous source like an array will execute and complete before the second subscribe statement is even reached
--->
+            const myObserver = (name) => {
+                return {
+                    next: x => {
+                        console.log(`Next: ${name} ${x}`)
+                    },
+                    error: err => {
+                        console.log(`Error: ${err}`)
+                    },
+                    complete: () => {
+                        console.log('Completed')
+                    }
+                }
+            }
+    </code></pre>
 
+    <aside class="notes">
+        -The big difference here is that you’ve decoupled the subscription from the activation of the event source
+        <br> - Because of this decoupling, the observable is also removed from the lifecycle of the event source (that is, start()
+        and stop() ), just like with WebSockets earlier. Thus, when all subscribers unsubscribe, the event emitter will continue
+        to send data
+        <br> => it’s just that no one is there to listen
+        <br>
+        <br> Do Not use share with synchronous data source:
+        <br> In basic terms, subscribing to a synchronous source like an array will execute and complete before the second subscribe
+        statement is even reached
+        <br> => No interest
+        <pre><code class="js"  data-trim contenteditable>
+            const source$ = Rx.Observable.from([1,2,3,4])
+                .filter(isEven)
+                .map(x => x * x)
+                .share()
+            source$.subscribe(x => console.log(`Stream 1 ${x}`))
+            source$.subscribe(x => console.log(`Stream 2 ${x}`))
+        </code></pre>
+    </aside>
+</section>
+<section>
+    <h2>Warm Observable vs Hot Observable</h2>
+
+    <aside class="notes">
+        Observables share subscriptions nammed hot !== Cold Observable
+        <br> Warm Observable start emitting events only after the first subscription (cold observables characteristic) + share
+        their data to all subscribers (hot observables characteristic)
+        </code>
+        </pre>
+    </aside>
+</section>
+<section>
+    <h2>Unsubscription liability?</h2>
+    <table>
+        <thead>
+            <tr style="color: rgb(233, 70, 70)">
+                <th></th>
+                <th>COLD</th>
+                <th>WARM</th>
+                <th>HOT</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="color: rgb(70, 81, 233)">RxJS liability?</td>
+                <td>True</td>
+                <td>True <br><span style="font-size: 0.5em;">(share, fromEvent)</span></td>
+                <td>False <br><span style="font-size: 0.5em;">=> memory leak Only concern manual Multicasting operator (publish)</span></td>
+            </tr>
+        </tbody>
+    </table>
 </section>
