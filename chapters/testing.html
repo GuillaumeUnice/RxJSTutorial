@@ -1,33 +1,45 @@
- <section>
-     <!--
-         In the end, one of the main advantages of writing your programs functionally is
-that you’ve organized the code in such a way that favors testability.
-     -->
-    <h3>FP testing approach</h3>
-    <p>Most of the case that's enough!</p>
-<!-- <p>We’ll begin this chapter by demonstrating that pure functions are inherently much
-        easier to test than stateful functions, because they have clear inputs and predictable
-        outputs—known as boundary conditions</p> -->
-
-        <!--t
+<section>
+    <h2>FP testing approach</h2>
+    <blockquote>Most of the case that's enough!</blockquote>
+    <ul>
+        <li>Clean/Reinitiate properly between each test</li>
+        <li>Coupling with other Module</li>
+        <li>Mock some third-party dependencies</li>
+        <li>Write multiple tests against the same function</li>
+        <li>idempotence trouble</li>
+    </ul>
+    <p>Only test our business logic data flow concern Observable context</p>
+    <aside class="notes">
+        In the end, one of the main advantages of writing your programs functionally is that you’ve organized the code in such a
+        way that favors testability.
+        <br>
         <ul>
-            <li>External state constraints us to clean/reinitiate properly between each test => also test order can directly impact the result</li>
+            <li>External state constraints us to clean/reinitiate properly between each test => also test order can directly
+                impact the result</li>
             <li>method higly coupled with other Module...</li>
             <li>Mock some third-party dependencies</li>
             <li>Write multiple tests against the same method just to cover all the flows (too many conditional statements)</li>
-            <li>idempotency trouble => that states you should be able to run the tests as many times as needed and always obtain the same results<li>
+            <li>idempotency trouble => that states you should be able to run the tests as many times as needed and always obtain
+                the same results</li>
         </ul>
-        => you can significantly diminish thanks to FP-->
+        => you can significantly diminish thanks to FP
+    </aside>
 </section>
 <section>
     <h2>Virtual Scheduler</h2>
+    <aside class="notes">
+
+    </aside>
 </section>
 <section>
-    <h3>RP approach marble-testing library</h3>
+    <h2>RP approach marble-testing library</h2>
     <ul>
         <li>Add additional endpoint</li>
         <li>Use middleware</li>
         <li>Pass user information through context</li>
     </ul>
     <p>ASCII Art to define Observable and test it</p>
+    <aside class="notes">
+        <!--https://medium.com/@bencabanes/marble-testing-observable-introduction-1f5ad39231c -->
+    </aside>
 </section>

@@ -17,15 +17,22 @@
             .map(x => x * x)
             .subscribe(subject)
     </code></pre>
-<!--
-    <p>So powerful lot of time a risk to break the FP approach by reintroducing state inside pipeline
-
-C'est tellement puissant qu'il y a un risque d'empirer nos mauvaises habitude quand à l'utilisation d'une approche FP en réintroduisant un état dans nos fonction pure et pipelines
-Il est donc préférable de toujours éviter l'utilisation des Subject au profit du couple Observable - Observer autant que faire se peut
-        Dans le cas contraire il est important de les encapsuler le plus possible
-
-    </p> -->
     <blockquote>Always try to avoid and use usual Observable - Observer couple as far as possible</blockquote>
+    <aside class="notes">
+        <p>
+            So powerful lot of time a risk to break the FP approach by reintroducing state inside pipeline
+
+            C'est tellement puissant qu'il y a un risque d'empirer nos mauvaises habitude quand à l'utilisation d'une approche FP en réintroduisant un état dans nos fonction pure et pipelines
+            Il est donc préférable de toujours éviter l'utilisation des Subject au profit du couple Observable - Observer autant que faire se peut
+            Dans le cas contraire il est important de les encapsuler le plus possible
+
+            Rule of thumb regarding Subject:
+            <br>
+            - we have to not expose references to the subject in the return value
+            <br>
+            - we have a defined lifetime for the subject
+        </p>
+    </aside>
 </section>
 <section>
     <h2>Multicast Operator Mapping</h2>

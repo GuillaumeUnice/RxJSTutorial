@@ -39,6 +39,14 @@
         The point is that it returns an observable sequence that stays connected to the source as long as there’s a least
         one active subscription. Does this sound familiar? It should because the share() operator we discussed a moment ago
         is little more than an alias for publish().refCount()
+        <br><br>
+        A connectable observable encapsulates the multicasting infrastructure, but does not immediately subscribe to the source.
+        It subscribes to the source when its connect method is called
+        <br>
+        refCount returns an observable that maintains a reference count of the subscriptions that have been made
+        <br><br>
+        publish.refCount !== share cause the latter return a new Subject unlike the first one
+         basically share becomes retriable unlike publish.refCount thus when refCount reach 0 and then a new Subscription coming share will could retry wheras publish.refCount throw the complete of is current complete Subject
     </aside>
 </section>
 <section>
@@ -60,7 +68,6 @@
 <section>
     <h2>Other Multicasting Operators</h2>
 
-    cache publishBehavior publishLast
     <ul style="font-size: 0.75em">
             <li>multicasting => Share source utilizing the provided Subject
                 <a href="//jsfiddle.net/btroncone/x2z7p1gm/" target="_blank">here</a>
@@ -75,7 +82,10 @@
             <!--
                 https://blog.thoughtram.io/angular/2018/03/05/advanced-caching-with-rxjs.html
                 https://stackoverflow.com/questions/41176489/rxjs-5-and-alternatives-to-the-cache-operator
+
+
                 https://blog.angularindepth.com/rxjs-understanding-the-publish-and-share-operators-16ea2f446635
+                => https://blog.angularindepth.com/rxjs-multicasts-secret-760e1a2b176e
             -->
 
         </aside>
