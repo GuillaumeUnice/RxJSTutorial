@@ -38,7 +38,7 @@
                 const clicks$ = Rx.Observable.fromEvent(document, 'click')
                 clicks$.concatMap((ev) => Rx.Observable.interval(1000).take(5))
         </code></pre>
-    <iframe src="https://giphy.com/embed/" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    <iframe src="https://giphy.com/embed/1UVCuNtFSGq3EqhPPz" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     <blockquote>Maps each value to an Observable, then flattens all of these inner Observables using concatAll</blockquote>
     <aside class="notes">
         - stock in a Buffer each Observable and play in order one after another

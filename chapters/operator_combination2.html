@@ -30,14 +30,14 @@
         Rx.Observable.combineLatest(s1$, s2$)
             .delay(3000)
     </code></pre>
-    <iframe src="https://giphy.com/embed/" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    <iframe src="https://giphy.com/embed/2aFWTnkJrWLELrwdTs" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     <pre style="font-size: 0.5em"><code class="js"  data-trim contenteditable>
         // Asynchronous behaviour
         const interval = Rx.Observable.interval(1000)
         Rx.Observable
           .combineLatest( interval, interval.take(2))
     </code></pre>
-    <iframe src="https://giphy.com/embed/" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    <iframe src="https://giphy.com/embed/3ktUmNNScuB5p1M5WY" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     <blockquote>Whenever any input Observable emits a value, it computes a formula using the latest values from all the inputs, then emits the output of that formula || When any observable emits a value, emit the latest value from each</blockquote>
 </section>
 <section>

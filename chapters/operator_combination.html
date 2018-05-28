@@ -45,7 +45,7 @@
     <pre style="font-size: 0.5em"><code class="js"  data-trim contenteditable>
             const stream1$ = Rx.Observable.of('a', 'b', 'c').delay(3000)
             const stream2$ = Rx.Observable.of(1, 2, 3)
-            stream1$.merge(stream2$) // equivalent [Static|Observable] method: Rx.Observable.concat(stream1$, stream2$)
+            stream1$.concat(stream2$) // equivalent [Static|Observable] method: Rx.Observable.concat(stream1$, stream2$)
         </code></pre>
     <iframe src="https://giphy.com/embed/9RXQODno83AQuGZNGg" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     <pre style="font-size: 0.5em"><code class="js"  data-trim contenteditable>
@@ -86,6 +86,7 @@
     <ul>
         <li>Implement a search bar</li>
     <!--
+        'https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&utf8=1&srsearch=lol
     Exercice: Realize a search bar with a map projection (afterthat replace with a switchMap)
     const search$ = Rx.Observable.fromEvent(inputText, 'keyup')
         .pluck('target', 'value')

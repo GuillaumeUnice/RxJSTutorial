@@ -70,10 +70,10 @@
 <section>
     <h2>BufferTime Operator</h2>
     <pre><code class="js"  data-trim contenteditable>
-            const interval$ = Rx.Observable.interval(1000)
-            //After two seconds, emit buffered values as an array
-            interval$.bufferTime(2000)
-            </code></pre>
+        const interval$ = Rx.Observable.interval(1000)
+        //After two seconds, emit buffered values as an array
+        interval$.bufferTime(2000)
+    </code></pre>
     <iframe src="https://giphy.com/embed/vNNktZHin65CLD3qly" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
 
     <blockquote>Collects values from the past as an array, and emits those arrays periodically in time</blockquote>
