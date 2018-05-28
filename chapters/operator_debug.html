@@ -1,0 +1,20 @@
+<section>
+    <h2>Debug Operators</h2>
+    <ul>
+        <li>do(printFunction) || tap(printFunction)</li>
+        <br>
+        <li>toArray()</li>
+        <li>toPromise()</li>
+        <li>finalize(commonTerminalOperationFunction)</li>
+    </ul>
+</section>
+<section>
+    <h2>Do || Tap Operator</h2>
+    <pre><code class="js"  data-trim contenteditable>
+                Rx.Observable.of(1, 10)
+                  .throttleTime(2000)
+                // Synchronous  values with a complete() signal event
+                // bring about receive immediately the first event and no more
+        </code></pre>
+    <blockquote>Lets a value pass, then ignores source values for the next duration milliseconds</blockquote>
+</section>
