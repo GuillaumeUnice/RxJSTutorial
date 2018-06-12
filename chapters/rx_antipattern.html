@@ -1,5 +1,8 @@
 <section>
     <h4>RxJS Antipattern</h4>
-
-    <p>Nesting subscriptions breaks the downstream flow of data from one observable to the next</p>
+    <ul>
+        <li>Nesting subscriptions breaks the downstream flow of data from one observable to the next</li>
+        <li>No Side Effect inside the pipeline</li>
+        <li>Avoid snapshot à la first(), take(1) &amp; skip(1)</li>
+    </ul>
 </section>
