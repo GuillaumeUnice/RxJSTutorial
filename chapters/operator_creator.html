@@ -3,7 +3,7 @@
     <ul>
         <li>of</li>
         <li>from</li>
-        <li>promise</li>
+        <li>fromPromise</li>
         <li>fromEvent</li>
         <br>
         <li>create</li>
@@ -36,8 +36,9 @@
                 <td>.fromPromise (!!!! not infinite one single value)
                     <a href="//jsfiddle.net/Echyzen/w86j4xcd/6/" target="_blank">here</a>
                 </td>
+                <!-- TODO: CF correct example-->
                 <td>.fromEvent => infinite never produce complete()
-                    <a href="http://jsfiddle.net/Echyzen/8zk4ovxc/1486/" target="_blank">here</a>
+                    <a href="//jsfiddle.net/m5k0xdwv/" target="_blank">here</a>
                 </td>
             </tr>
         </tbody>
@@ -55,23 +56,48 @@
     <ul>
         <li>timer(initDelay, period)</li>
         <li>interval(period)</li>
-        <li>range(startNumber, count) <a href="//jsfiddle.net/Echyzen/6pq7w84u/" target="_blank">here</a></li>
-        <li>repeat <a href="//jsfiddle.net/Echyzen/j3hqdLej/" target="_blank">here</a></li>
-        <li>empty <a href="//jsfiddle.net/Echyzen/yyqtza81/" target="_blank">here</a></li>
-        <li>throw <a href="//jsfiddle.net/Echyzen/dd6z6wqq/" target="_blank">here</a></li>
+        <li>range(startNumber, count)
+            <a href="//jsfiddle.net/Echyzen/6pq7w84u/" target="_blank">here</a>
+        </li>
+        <li>repeat
+            <a href="//jsfiddle.net/Echyzen/j3hqdLej/" target="_blank">here</a>
+        </li>
+        <li>empty
+            <a href="//jsfiddle.net/Echyzen/yyqtza81/" target="_blank">here</a>
+        </li>
+        <li>throw
+            <a href="//jsfiddle.net/Echyzen/dd6z6wqq/" target="_blank">here</a>
+        </li>
     </ul>
     <aside class="notes">
-        They’re usually combined with observable streams that generate meaningful data
+        <p>
+            They’re usually combined with observable streams that generate meaningful data
+        </p>
+        <ul>
+            <li>bindCallback</li>
+            <li>bindNodeCallback</li>
+            <li>defer</li> => TODO: http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#static-method-defer
+            <li>fromEventPattern</li>
+            <li>never</li>
+            <li>repeatWhen</li>
+        </ul>
     </aside>
 </section>
 <section>
     <h2>Exercice</h2>
     <ul>
-        <li>Implement a custom Observable Operator</li><!--Exercice implement the reverseFilter Operator http://jsfiddle.net/vyy2whh1/1/-->
-        <li>Make a counter with HTML Button Tag</li><!--//jsfiddle.net/wadahiro/8zk4ovxc/ -->
+        <li>Implement a custom Observable Operator</li>
+        <!--Exercice implement the reverseFilter Operator http://jsfiddle.net/vyy2whh1/1/-->
+        <li>Make a counter with HTML Button Tag</li>
+        <!--//jsfiddle.net/wadahiro/8zk4ovxc/ -->
     </ul>
     <aside class="notes">
-        Implement a custom Observable Operator => Exercice implement the reverseFilter Operator http://jsfiddle.net/vyy2whh1/1/
-        Make a counter with HTML Button Tag => //jsfiddle.net/wadahiro/8zk4ovxc/
+        <p>
+            Implement a custom Observable Operator => Exercice implement the reverseFilter Operator
+            <a href="//jsfiddle.net/vyy2whh1/1/"
+                target="_blank">here</a>
+            Make a counter with HTML Button Tag =>
+            <a href="//jsfiddle.net/wadahiro/8zk4ovxc/" target="_blank">here</a>
+        </p>
     </aside>
 </section>

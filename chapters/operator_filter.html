@@ -103,31 +103,33 @@
 
     <pre><code class="js"  data-trim contenteditable>
             Rx.Observable.of(1, 1, 2, 2, 2, 1, 2, 3, 4, 3)
-            .distinctUntilChanged() // 1, 2, 1, 2, 3, 4, 3
+            .distinct() // 1, 2, 3, 4
     </code></pre>
 
     <img src="images/distinct.png" width="400" style="border: none;" alt="Distinct synchronous value marble diagram" />
 
-    <!-- <pre><code class="js" style="font-size: 0.75em" data-trim contenteditable>
-        interface Person {
-            age: number,
-            name: string
-        }
-
-        Observable.of< Person >(
-            { age: 4, name: 'Foo'},
-            { age: 7, name: 'Bar'},
-            { age: 5, name: 'Foo'})
-            .distinct((p: Person) => p.name)
-            .subscribe(x => console.log(x));
-
-        // displays:
-        // { age: 4, name: 'Foo' }
-        // { age: 7, name: 'Bar' }
-    </code></pre> -->
     <blockquote>Returns an Observable that emits all items emitted by the source Observable that are distinct by comparison from previous
         items
     </blockquote>
+    <aside class="notes">
+        <pre><code class="js" style="font-size: 0.75em" data-trim contenteditable>
+            interface Person {
+                age: number,
+                name: string
+            }
+
+            Observable.of< Person >(
+                { age: 4, name: 'Foo'},
+                { age: 7, name: 'Bar'},
+                { age: 5, name: 'Foo'})
+                .distinct((p: Person) => p.name)
+                .subscribe(x => console.log(x));
+
+            // displays:
+            // { age: 4, name: 'Foo' }
+            // { age: 7, name: 'Bar' }
+        </code></pre>
+    </aside>
 </section>
 <section>
     <h4>DistinctUntilChanged Operator</h4>

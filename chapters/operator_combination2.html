@@ -23,7 +23,7 @@
 
 <section>
     <h2>combineLatest Operator</h2>
-    <pre style="font-size: 0.5em"><code class="js"  data-trim contenteditable>
+    <pre style="font-size: 0.5em; margin: 0"><code class="js"  data-trim contenteditable>
         // synchronous behaviour
         const s1$ = Rx.Observable.of(1, 2, 3, 4, 5, 6, 7, 8, 9);
         const s2$ = Rx.Observable.of('a', 'b', 'c', 'd', 'e');
@@ -31,7 +31,7 @@
             .delay(3000)
     </code></pre>
     <iframe src="https://giphy.com/embed/2aFWTnkJrWLELrwdTs" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-    <pre style="font-size: 0.5em"><code class="js"  data-trim contenteditable>
+    <pre style="font-size: 0.5em; margin: 0"><code class="js"  data-trim contenteditable>
         // Asynchronous behaviour
         const interval = Rx.Observable.interval(1000)
         Rx.Observable
