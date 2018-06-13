@@ -24,21 +24,20 @@
             <tr>
                 <td style="color: rgb(70, 81, 233)">Synchronous</td>
                 <td>.of()
-                    <a href="//jsfiddle.net/btroncone/d9rng4dj/" target="_blank">here</a>
+                    <a href="//jsfiddle.net/75h2j4cg/" target="_blank">here</a>
                 </td>
                 <td>.from()
-                    <a href="//jsfiddle.net/btroncone/o7kb5e6j/" target="_blank">here</a> &amp;
-                    <a href="//jsfiddle.net/btroncone/hfvzjcvL/" target="_blank">here</a>
+                    <a href="//jsfiddle.net/h234yecp/" target="_blank">here</a> &amp;
+                    <a href="//jsfiddle.net/pa4s1nq9/" target="_blank">here</a>
                 </td>
             </tr>
             <tr>
                 <td style="color: rgb(70, 81, 233)">Asynchronous</td>
                 <td>.fromPromise (!!!! not infinite one single value)
-                    <a href="//jsfiddle.net/Echyzen/w86j4xcd/6/" target="_blank">here</a>
+                    <a href="//jsfiddle.net/jp984gan/" target="_blank">here</a>
                 </td>
-                <!-- TODO: CF correct example-->
                 <td>.fromEvent => infinite never produce complete()
-                    <a href="//jsfiddle.net/m5k0xdwv/" target="_blank">here</a>
+                    <a href="jsfiddle.net/t4hf6snd/" target="_blank">here</a>
                 </td>
             </tr>
         </tbody>
@@ -47,26 +46,33 @@
 <section>
     <h2>Operator Create</h2>
     <p>
-        <a href="//jsfiddle.net/Echyzen/ja0vzsqk/" target="_blank">Here</a>
+        <a href="//jsfiddle.net/2ygjtcwd/" target="_blank">Here</a>
     </p>
     <p>The business logic of how the values are generated and emitted belongs to the observable</p>
 </section>
 <section>
     <h2>Other Creation Operator</h2>
     <ul>
-        <li>timer(initDelay, period)</li>
-        <li>interval(period)</li>
+        <li>timer(initDelay, period)
+            <a href="//jsfiddle.net/Echyzen/ro95ktz0/" target="_blank">here</a>
+        </li>
+        <li>interval(period)
+            <a href="//jsfiddle.net/Echyzen/8as26bqp/" target="_blank">here</a>
+        </li>
         <li>range(startNumber, count)
-            <a href="//jsfiddle.net/Echyzen/6pq7w84u/" target="_blank">here</a>
+            <a href="//jsfiddle.net/Echyzen/1gaL62t8/" target="_blank">here</a>
         </li>
         <li>repeat
-            <a href="//jsfiddle.net/Echyzen/j3hqdLej/" target="_blank">here</a>
+            <a href="//jsfiddle.net/Echyzen/a2m0tkc6/" target="_blank">here</a>
         </li>
         <li>empty
-            <a href="//jsfiddle.net/Echyzen/yyqtza81/" target="_blank">here</a>
+            <a href="//jsfiddle.net/Echyzen/xg9kf7aj/" target="_blank">here</a>
         </li>
         <li>throw
-            <a href="//jsfiddle.net/Echyzen/dd6z6wqq/" target="_blank">here</a>
+            <a href="//jsfiddle.net/Echyzen/u3Loqxa9/" target="_blank">here</a>
+        </li>
+        <li>defer
+            <a href="//jsfiddle.net/Echyzen/s035y6fk/" target="_blank">here</a>
         </li>
     </ul>
     <aside class="notes">
@@ -76,7 +82,7 @@
         <ul>
             <li>bindCallback</li>
             <li>bindNodeCallback</li>
-            <li>defer</li> => TODO: http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html#static-method-defer
+            <li>defer</li> => allows you to create the Observable only when the Observer subscribes, and create a fresh Observable for each Observer
             <li>fromEventPattern</li>
             <li>never</li>
             <li>repeatWhen</li>
@@ -85,19 +91,22 @@
 </section>
 <section>
     <h2>Exercice</h2>
+    <p>
+        <a href="//jsfiddle.net/Echyzen/jrvqoL9s/" target="_blank">here</a>
+    </p>
+
     <ul>
         <li>Implement a custom Observable Operator</li>
-        <!--Exercice implement the reverseFilter Operator http://jsfiddle.net/vyy2whh1/1/-->
+        <!--Exercice implement the reverseFilter Operator https://jsfiddle.net/Echyzen/jx82mbzy/ -->
         <li>Make a counter with HTML Button Tag</li>
-        <!--//jsfiddle.net/wadahiro/8zk4ovxc/ -->
+        <!--//jsfiddle.net/Echyzen/xezbyumL/ -->
     </ul>
     <aside class="notes">
         <p>
             Implement a custom Observable Operator => Exercice implement the reverseFilter Operator
-            <a href="//jsfiddle.net/vyy2whh1/1/"
-                target="_blank">here</a>
+            <a href="//jsfiddle.net/Echyzen/jx82mbzy/" target="_blank">here</a>
             Make a counter with HTML Button Tag =>
-            <a href="//jsfiddle.net/wadahiro/8zk4ovxc/" target="_blank">here</a>
+            <a href="//jsfiddle.net/Echyzen/xezbyumL/" target="_blank">here</a>
         </p>
     </aside>
 </section>
