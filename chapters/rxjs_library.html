@@ -4,6 +4,42 @@
         <li>Performance: RxJS 5 5X faster on average than RxJS 4 in V8</li>
         <li>Operator: RxJS 5 streamline operators &amp; import module (ES6)</li>
         <li>Specification: RxJS 5 ES Observable specification matches</li>
+        <br>
         <li>Syntax: RxJS 6 use "pipe" function which ships all Observable Operators (like then for Promises)</li>
+        <li>RxJS 6 apply treeshaking</li>
+
     </ul>
+</section>
+<section>
+    <h2>Import path</h2>
+    <pre><code class="js"  data-trim contenteditable>
+        # Before
+        import { Observable } from 'rxjs/Observable';
+        import 'rxjs/add/observable/of';
+        import 'rxjs/add/operator/map'
+        import 'rxjs/add/operator/throttle'
+        # After
+        import { Observable, of } from 'rxjs';
+        import { map, throttle } from 'rxjs/operators';
+    </code></pre>
+</section>
+
+<section>
+    <h2>Renamed operator</h2>
+    <p>Instance method</p>
+    <ul>
+        <li>catch() => catchError()</li>
+        <li>do() => tap()</li>
+        <li>finally() => finalize()</li>
+        <li>switch() => switchAll()</li>
+    </ul>
+
+    <p>Static method</p>
+    <ul>
+        <li>throw() => throwError()</li>
+        <li>fromPromise() => from() infered the type</li>
+    </ul>
+    <aside class="notes">
+        catch as prototypal function no problem but as pipeable/lettable function not possible because it's a JavaScript reserved keyword
+    </aside>
 </section>
