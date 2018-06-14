@@ -1,6 +1,8 @@
 <section>
     <h2>Filtering Operators</h2>
     <ul>
+        <li>filter</li>
+        <br>
         <li>delay</li>
         <li>debounceTime - debounce</li>
         <li>throttleTime - throttle</li>
@@ -12,28 +14,34 @@
 </section>
 <section>
     <h2>Time as a filter predicate</h2>
-    <!-- You can think of this operator as belonging to the filtering category of operators, using time as the predicate to decide
-    which events to keep. #DEBOUNCE In simple software terms, debouncing means “execute a function or some action only if
-    a certain period has passed without it being called.” -->
     <ul>
         <li>Explicit time: relative time &amp; absolute time</li>
         <li>Implicit time</li>
     </ul>
+    <aside class="notes">
+            You can think of this operator as belonging to the filtering category of operators, using time as the predicate to decide which events to keep.
+            <br>
+            #DEBOUNCE In simple software terms, debouncing means “execute a function or some action only if a certain period has passed without it being called.”
+    </aside>
 </section>
 <section>
     <h2>Delay Operator</h2>
 
     <pre><code class="js"  data-trim contenteditable>
-        Rx.Observable.of([1, 2, 3, 4, 5])
-            .do(x => console.log(`Emitted: ${x}`))
-            .delay(200)
-             .subscribe(x => console.log(`Received: ${x}`));
-        Rx.Observable.from([1, 2])
-             .delay(2000)
-             .concat(Rx.Observable.from([3, 4]))
-             .delay(2000)
-             .concat(Rx.Observable.from([5, 6]))
-             .delay(2000)
+        rxjs.of([1, 2, 3, 4, 5])
+            .pipe(
+                rxjs.operators.tap(x => console.log(`Emitted: ${x}`)),
+                rxjs.operators.delay(200)
+            )
+
+        rxjs.from([1, 2])
+            .pipe(
+                rxjs.operators.delay(2000),
+                rxjs.operators.concat(rxjs.from([3, 4])),
+                rxjs.operators.delay(2000),
+                rxjs.operators.concat(rxjs.from([5, 6])),
+                rxjs.operators.delay(2000)
+            )
     </code></pre>
     <ul>
         <li>Use a Buffer internally</li>
@@ -43,16 +51,18 @@
 <section>
     <h2>DebounceTime Operator</h2>
     <pre><code class="js"  data-trim contenteditable>
-                Rx.Observable.of(1, 10)
-                  .debounceTime(2000)
+                rxjs.of(1, 10)
+                    .pipe(rxjs.operators.debounceTime(2000))
                 // Synchronous values with a complete() signal event bring about receive immediately the last event
         </code></pre>
     <img src="images/debounceTime.png" width="400" style="border: none;" alt="DebounceTime synchronous value marble diagram"
     />
     <pre><code class="js"  data-trim contenteditable>
-            Rx.Observable.fromEvent(document, 'click')
-                .map((ev) => ev.clientX)
-                .debounceTime(2000)
+            rxjs.fromEvent(document, 'click')
+                .pipe(
+                    rxjs.operators.map((ev) => ev.clientX),
+                    rxjs.operators.debounceTime(2000)
+                )
         </code></pre>
     <!--vcnl9snmT7PPqvOd0n-->
     <iframe src="https://giphy.com/embed/WwBRM6pADlyXPwri2T" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
@@ -62,9 +72,12 @@
     <h2>Debounce Operator</h2>
     <!-- <p>Emits a value from the source Observable only after a particular time span determined by another Observable has passed without another source emission</p> -->
     <pre><code class="js"  data-trim contenteditable>
-            const clicks$ = Rx.Observable.fromEvent(document, 'click')
-            clicks$.debounce(() => Rx.Observable.interval(1000))
-                .map((ev)=> ev.clientX)
+            const clicks$ = rxjs.fromEvent(document, 'click')
+            clicks$
+                .pipe(
+                    rxjs.operators.debounce(() => rxjs.interval(1000)),
+                    rxjs.operators.map((ev)=> ev.clientX)
+                )
         </code></pre>
     <iframe src="https://giphy.com/embed/42ylm7n9CgbcyGlEEP" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     <blockquote>It's like debounceTime, but the time span of emission silence is determined by a second Observable</blockquote>
@@ -72,17 +85,21 @@
 <section>
     <h2>ThrottleTime Operator</h2>
     <pre><code class="js"  data-trim contenteditable>
-                Rx.Observable.of(1, 10)
-                  .throttleTime(2000)
+                rxjs.of(1, 10)
+                    .pipe(
+                        rxjs.operators.throttleTime(2000)
+                    )
                 // Synchronous  values with a complete() signal event
                 // bring about receive immediately the first event and no more
         </code></pre>
     <img src="images/throttleTime.png" width="400" style="border: none;" alt="ThrottleTime synchronous value marble diagram"
     />
     <pre><code class="js"  data-trim contenteditable>
-                Rx.Observable.fromEvent(document, 'click')
-                    .map((ev) => ev.clientX)
-                    .throttleTime(2000)
+                rxjs.fromEvent(document, 'click')
+                    .pipe(
+                        rxjs.operators.map((ev) => ev.clientX),
+                        rxjs.operators.throttleTime(2000)
+                    )
             </code></pre>
     <iframe src="https://giphy.com/embed/kVh2Bn17mj9CX9bM2y" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     <blockquote>Lets a value pass, then ignores source values for the next duration milliseconds</blockquote>
@@ -91,9 +108,9 @@
     <h2>Throttle Operator</h2>
     <pre><code class="js"  data-trim contenteditable>
         //emit value every 1 second
-        const source$ = Rx.Observable.interval(1000)
+        const source$ = rxjs.interval(1000)
         //throttle for 2 seconds, emit latest value
-        source$.throttle(val => Rx.Observable.timer(2000))
+        source$.pipe(rxjs.operators.throttle(val => rxjs.timer(2000)))
     </code></pre>
     <iframe src="https://giphy.com/embed/fRaBQ1XAxStfrFevl5" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     <blockquote>It's like throttleTime, but the silencing duration is determined by a second Observable</blockquote>
@@ -102,8 +119,10 @@
     <h4>Distinct Operator</h4>
 
     <pre><code class="js"  data-trim contenteditable>
-            Rx.Observable.of(1, 1, 2, 2, 2, 1, 2, 3, 4, 3)
-            .distinct() // 1, 2, 3, 4
+        rxjs.of(1, 1, 2, 2, 2, 1, 2, 3, 4, 3)
+            .pipe(
+                rxjs.operators.distinct() // 1, 2, 3, 4
+            )
     </code></pre>
 
     <img src="images/distinct.png" width="400" style="border: none;" alt="Distinct synchronous value marble diagram" />
@@ -118,11 +137,11 @@
                 name: string
             }
 
-            Observable.of< Person >(
+            rxjs.of< Person >(
                 { age: 4, name: 'Foo'},
                 { age: 7, name: 'Bar'},
                 { age: 5, name: 'Foo'})
-                .distinct((p: Person) => p.name)
+                .pipe(rxjs.operators.distinct((p: Person) => p.name))
                 .subscribe(x => console.log(x));
 
             // displays:
@@ -135,9 +154,11 @@
     <h4>DistinctUntilChanged Operator</h4>
 
     <pre><code class="js"  data-trim contenteditable>
-            Rx.Observable.of(1, 1, 2, 2, 2, 1, 2, 3, 4, 3)
-            .distinctUntilChanged() // 1, 2, 1, 2, 3, 4, 3
-        </code></pre>
+        rxjs.of(1, 1, 2, 2, 2, 1, 2, 3, 4, 3)
+            .pipe(
+                rxjs.operators.distinctUntilChanged() // 1, 2, 1, 2, 3, 4, 3
+            )
+    </code></pre>
 
     <img src="images/distinctUntilChanged.png" width="400" style="border: none;" alt="DistinctUntilChanged synchronous value marble diagram"
     />
@@ -149,8 +170,10 @@
     <h4>Take Operator</h4>
 
     <pre><code class="js" data-trim contenteditable>
-        Rx.Observable.interval(1000)
-         .take(5)
+        rxjs.interval(1000)
+            .pipe(
+                rxjs.operators.take(5)
+            )
     </code></pre>
     <iframe src="https://giphy.com/embed/ftdjQXPCukeQuWOX6U" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     <blockquote>Takes the first count values from the source, then completes</blockquote>
@@ -159,9 +182,11 @@
     <h4>TakeLast Operator</h4>
 
     <pre><code class="js" data-trim contenteditable>
-            Rx.Observable.range(1, 100)
-             .takeLast(3)
-        </code></pre>
+        rxjs.range(1, 100)
+            .pipe(
+                rxjs.operators.takeLast(3)
+            )
+    </code></pre>
     <img src="images/takeLast.png" width="400" style="border: none;" alt="takeLast synchronous value marble diagram" />
     <blockquote>Remembers the latest count values, then emits those only when the source completes</blockquote>
 </section>
@@ -169,18 +194,22 @@
     <h4>TakeUntil Operator</h4>
 
     <pre><code class="js"  data-trim contenteditable>
-            Rx.Observable.interval(1000)
-                .takeUntil(Rx.Observable.timer(5000))
-        </code></pre>
+        rxjs.interval(1000)
+            .pipe(
+                rxjs.operators.takeUntil(rxjs.timer(5000))
+            )
+    </code></pre>
     <iframe src="https://giphy.com/embed/d2rEP18hG7x8lTc6BD" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     <blockquote>Lets values pass until a second Observable, notifier, emits something. Then, it completes</blockquote>
 </section>
 <section>
     <h4>TakeWhile Operator</h4>
     <pre><code class="js"  data-trim contenteditable>
-            Rx.Observable.interval(1000)
-                .takeWhile(value => value < 3)
-        </code></pre>
+        rxjs.interval(1000)
+            .pipe(
+                rxjs.operators.takeWhile(value => value < 3)
+            )
+    </code></pre>
     <iframe src="https://giphy.com/embed/5zh3jlVuUkcoApf9FP" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     <blockquote>Takes values from the source only while they pass the condition given. When the first value does not satisfy, it completes
     </blockquote>
@@ -214,4 +243,3 @@
         <li>single(predicateFunction) => return value if one match otherwise (more value matched) error</li>
     </ul>
 </section>
-<!-- TODO: Exercice idea: make a search bar -->
