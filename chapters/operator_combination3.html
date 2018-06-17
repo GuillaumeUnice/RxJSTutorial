@@ -41,9 +41,11 @@
         <a href="//jsfiddle.net/Echyzen/qsbfzez0/" target="_blank">here</a>
     </p>
     <pre><code class="js"  data-trim contenteditable>
-        Rx.Observable.fromEvent(document, 'click')
-            .map((ev) => Rx.Observable.interval(900).take(5))
-            .mergeAll()
+        rxjs.fromEvent(document, 'click')
+            .pipe(
+                rxjs.operators.map((ev) => rxjs.interval(900).pipe(rxjs.operators.take(5))),
+                rxjs.operators.mergeAll()
+            )
     </code></pre>
     <iframe src="https://giphy.com/embed/dup8EiKjcT0iFJSQ63" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     <blockquote>Flattens an Observable-of-Observable || Collect and subscribe to all observables</blockquote>
@@ -52,9 +54,11 @@
     <h2>concatAll Operator</h2>
     <blockquote>map + concatAll = concatMap</blockquote>
     <pre><code class="js"  data-trim contenteditable>
-            Rx.Observable.fromEvent(document, 'click')
-                .map((ev) => Rx.Observable.interval(900).take(5))
-                .concatAll()
+            rxjs.fromEvent(document, 'click')
+                .pipe(
+                    rxjs.operators.map((ev) => rxjs.interval(900).pipe(rxjs.operators.take(5))),
+                    rxjs.operators.concatAll()
+                )
         </code></pre>
     <iframe src="https://giphy.com/embed/1UVCuNtFSGq3EqhPPz" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     <blockquote>Flattens an Observable-of-Observables by putting one inner Observable after the other || Collect observables and subscribe
@@ -63,24 +67,28 @@
 <section>
     <h2>zipAll Operator</h2>
     <pre style="font-size: 0.45em; margin: 0;"><code class="js"  data-trim contenteditable>
-        const interval$ = Rx.Observable.interval(1000)
+        const interval$ = rxjs.interval(1000)
         //when one inner observable completes no more values will be emitted
-        Rx.Observable.of( interval, interval.take(2))
-            .zipAll()
+        rxjs.of(interval$, interval$.pipe(rxjs.operators.take(2)))
+            .pipe(rxjs.operators.zipAll())
         </code></pre>
     <iframe src="https://giphy.com/embed/p3UpBnlcSest8ApaFW/" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     <pre style="font-size: 0.45em; margin: 0;"><code class="js"  data-trim contenteditable>
-            let age$ = Rx.Observable.of(27, 25, 29)
-            let name$ = Rx.Observable.of('Foo', 'Bar', 'Beer')
-            let isDev$ = Rx.Observable.of(true, true, false)
+            let age$ = rxjs.of(27, 25, 29)
+            let name$ = rxjs.of('Foo', 'Bar', 'Beer')
+            let isDev$ = rxjs.of(true, true, false)
             // Here we compute the created value through a function in last parameter
-            Rx.Observable.of(age$, name$, isDev$)
-                .zipAll()
-                .delay(3000)
+            rxjs.of(age$, name$, isDev$)
+                .pipe(
+                    rxjs.operators.zipAll(),
+                    rxjs.operators.delay(3000)
+                )
         </code></pre>
     <iframe src="https://giphy.com/embed/NS69RN2zKkGTwpYFvS" width="300" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     <blockquote style="font-size: 0.75em">
         Combines multiple Observables value from an Observable of Observable to create an Observable whose values are calculated from the values, in order, of each input Observables
     </blockquote>
-
+    <aside class="notes">
+        Pretty much like zip Operator but on Observable of Observable so only intance method
+    </aside>
 </section>

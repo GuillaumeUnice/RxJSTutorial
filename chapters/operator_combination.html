@@ -24,18 +24,18 @@
     <h2>Merge Operator</h2>
     <pre style="font-size: 0.5em"><code class="js"  data-trim contenteditable>
             // Synchronous behaviour
-            const stream1$ = Rx.Observable.of('a', 'b', 'c')
-            const stream2$ = Rx.Observable.of(1, 2, 3)
-            stream1$.merge(stream2$) // equivalent [Static|Observable] method: Rx.Observable.merge(stream1$, stream2$)
+            const stream1$ = rxjs.of('a', 'b', 'c')
+            const stream2$ = rxjs.of(1, 2, 3)
+            stream1$.pipe(rxjs.operators.merge(stream2$)) // equivalent [Static|Observable] method: rxjs.merge(stream1$, stream2$)
     </code></pre>
     <img src="images/merge_synchronous.png" width="400" style="border: none;" alt="Merge Operator with synchronous data Marble Diagram"
     />
     <pre style="font-size: 0.5em"><code class="js"  data-trim contenteditable>
-        const clicks$ = Rx.Observable.fromEvent(document, 'click')
-            .map((ev) => ev.clientX)
-        const timer$ = Rx.Observable.interval(1000)
+        const clicks$ = rxjs.fromEvent(document, 'click')
+            .pipe(rxjs.operators.map((ev) => ev.clientX))
+        const timer$ = rxjs.interval(1000)
 
-        clicks$.merge(timer$) // equivalent [Static|Observable] method: Rx.Observable.merge(clicks$, timer$)
+        clicks$.pipe(rxjs.operators.merge(timer$)) // equivalent [Static|Observable] method: rxjs.merge(clicks$, timer$)
     </code></pre>
     <iframe src="https://giphy.com/embed/l70a0u7fTI7Lri0x5a" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     <blockquote>Flattens multiple Observables together by blending their values into one Observable</blockquote>
@@ -43,14 +43,16 @@
 <section>
     <h2>Concat Operator</h2>
     <pre style="font-size: 0.5em"><code class="js"  data-trim contenteditable>
-            const stream1$ = Rx.Observable.of('a', 'b', 'c').delay(3000)
-            const stream2$ = Rx.Observable.of(1, 2, 3)
-            stream1$.concat(stream2$) // equivalent [Static|Observable] method: Rx.Observable.concat(stream1$, stream2$)
+            const stream1$ = rxjs.of('a', 'b', 'c').pipe(rxjs.operators.delay(3000))
+            const stream2$ = rxjs.of(1, 2, 3)
+            stream1$.pipe(rxjs.operators.concat(stream2$)) // equivalent [Static|Observable] method: rxjs.concat(stream1$, stream2$)
         </code></pre>
     <iframe src="https://giphy.com/embed/9RXQODno83AQuGZNGg" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     <pre style="font-size: 0.5em"><code class="js"  data-trim contenteditable>
-                Rx.Observable.concat(Rx.Observable.interval(1000),
-                Rx.Observable.of('This', 'Never', 'Runs'))
+                rxjs.concat(
+                    rxjs.interval(1000),
+                    rxjs.of('This', 'Never', 'Runs')
+                )
                 // When source never completes, the subsequent observables never runs
                 // Warning: Here the second Observable is actually HOT for asynchronous data type
             </code></pre>
@@ -63,14 +65,14 @@
         const stream1$ = rxjs.of('a', 'b', 'c')
             .pipe(rxjs.operators.delay(3000))
         const stream2$ = rxjs.of(1, 2, 3)
-        stream1$.pipe(rxjs.operators.switch(stream2$))
+        stream1$.pipe(rxjs.operators.switchAll(stream2$))
     </code></pre>
     <iframe src="https://giphy.com/embed/3j4IidvNsiFHoorNVc" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
 
     <pre style="font-size: 0.5em"><code class="js"  data-trim contenteditable>
-        const clicks$ = Rx.Observable.fromEvent(document, 'click')
-            .map((ev) => Rx.Observable.interval(1000))
-        clicks$.switch()
+        const clicks$ = rxjs.fromEvent(document, 'click')
+            .pipe(rxjs.operators.map((ev) => rxjs.interval(1000)))
+        clicks$.pipe(rxjs.operators.switchAll())
     </code></pre>
     <iframe src="https://giphy.com/embed/1YbvP2jVibyMNYKeaQ" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     <p>Flattens an Observable-of-Observables by dropping the previous inner Observable once a new one appears</p>
@@ -86,6 +88,9 @@
     <h2>Exercice</h2>
     <ul>
         <li>Implement a search bar</li>
+        <p>
+            <a href="//jsfiddle.net/Echyzen/jrvqoL9s/" target="_blank">here</a>
+        </p>
     <!--
         'https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&utf8=1&srsearch=lol
     Exercice: Realize a search bar with a map projection (afterthat replace with a switchMap)
@@ -96,5 +101,8 @@
         .map(query => sendRequest(testData, query)))
         .subscribe(...)
     -->
+    <aside class="notes">
+        <a href="//jsfiddle.net/vbqgLk6y/" target="_blank">Here</a>
+    </aside>
     </ul>
 </section>
