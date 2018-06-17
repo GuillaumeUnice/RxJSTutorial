@@ -26,7 +26,8 @@
             // Synchronous behaviour
             const stream1$ = rxjs.of('a', 'b', 'c')
             const stream2$ = rxjs.of(1, 2, 3)
-            stream1$.pipe(rxjs.operators.merge(stream2$)) // equivalent [Static|Observable] method: rxjs.merge(stream1$, stream2$)
+            // equivalent [Static|Observable] method: rxjs.merge(stream1$, stream2$)
+            stream1$.pipe(rxjs.operators.merge(stream2$))
     </code></pre>
     <img src="images/merge_synchronous.png" width="400" style="border: none;" alt="Merge Operator with synchronous data Marble Diagram"
     />
@@ -34,21 +35,22 @@
         const clicks$ = rxjs.fromEvent(document, 'click')
             .pipe(rxjs.operators.map((ev) => ev.clientX))
         const timer$ = rxjs.interval(1000)
-
-        clicks$.pipe(rxjs.operators.merge(timer$)) // equivalent [Static|Observable] method: rxjs.merge(clicks$, timer$)
+        // equivalent [Static|Observable] method: rxjs.merge(clicks$, timer$)
+        clicks$.pipe(rxjs.operators.merge(timer$))
     </code></pre>
     <iframe src="https://giphy.com/embed/l70a0u7fTI7Lri0x5a" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     <blockquote>Flattens multiple Observables together by blending their values into one Observable</blockquote>
 </section>
 <section>
     <h2>Concat Operator</h2>
-    <pre style="font-size: 0.5em"><code class="js"  data-trim contenteditable>
+    <pre style="font-size: 0.5em; margin: 0"><code class="js"  data-trim contenteditable>
             const stream1$ = rxjs.of('a', 'b', 'c').pipe(rxjs.operators.delay(3000))
             const stream2$ = rxjs.of(1, 2, 3)
-            stream1$.pipe(rxjs.operators.concat(stream2$)) // equivalent [Static|Observable] method: rxjs.concat(stream1$, stream2$)
+            // equivalent [Static|Observable] method: rxjs.concat(stream1$, stream2$)
+            stream1$.pipe(rxjs.operators.concat(stream2$))
         </code></pre>
     <iframe src="https://giphy.com/embed/9RXQODno83AQuGZNGg" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-    <pre style="font-size: 0.5em"><code class="js"  data-trim contenteditable>
+    <pre style="font-size: 0.5em; margin: 0"><code class="js"  data-trim contenteditable>
                 rxjs.concat(
                     rxjs.interval(1000),
                     rxjs.of('This', 'Never', 'Runs')
@@ -61,7 +63,7 @@
 </section>
 <section>
     <h2>switchAll Operator</h2>
-    <pre style="font-size: 0.5em"><code class="js"  data-trim contenteditable>
+    <pre style="font-size: 0.5em; margin: 0"><code class="js"  data-trim contenteditable>
         const stream1$ = rxjs.of('a', 'b', 'c')
             .pipe(rxjs.operators.delay(3000))
         const stream2$ = rxjs.of(1, 2, 3)
@@ -69,14 +71,13 @@
     </code></pre>
     <iframe src="https://giphy.com/embed/3j4IidvNsiFHoorNVc" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
 
-    <pre style="font-size: 0.5em"><code class="js"  data-trim contenteditable>
+    <pre style="font-size: 0.5em; margin: 0"><code class="js"  data-trim contenteditable>
         const clicks$ = rxjs.fromEvent(document, 'click')
             .pipe(rxjs.operators.map((ev) => rxjs.interval(1000)))
         clicks$.pipe(rxjs.operators.switchAll())
     </code></pre>
     <iframe src="https://giphy.com/embed/1YbvP2jVibyMNYKeaQ" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-    <p>Flattens an Observable-of-Observables by dropping the previous inner Observable once a new one appears</p>
-    <blockquote></blockquote>
+    <blockquote>Flattens an Observable-of-Observables by dropping the previous inner Observable once a new one appears</blockquote>
     <aside class="notes">
         -So far, it behaves like mergeAll. However, when a new inner Observable is emitted, switch unsubscribes from the earlier-emitted inner Observable
             and subscribes to the new inner Observable and begins emitting items from it. It continues to behave like this for subsequent inner Observables.

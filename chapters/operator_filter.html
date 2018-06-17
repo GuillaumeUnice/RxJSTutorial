@@ -84,7 +84,7 @@
 </section>
 <section>
     <h2>ThrottleTime Operator</h2>
-    <pre><code class="js"  data-trim contenteditable>
+    <pre style="font-size: 0.5em; margin: 0;"><code class="js"  data-trim contenteditable>
                 rxjs.of(1, 10)
                     .pipe(
                         rxjs.operators.throttleTime(2000)
@@ -94,7 +94,7 @@
         </code></pre>
     <img src="images/throttleTime.png" width="400" style="border: none;" alt="ThrottleTime synchronous value marble diagram"
     />
-    <pre><code class="js"  data-trim contenteditable>
+    <pre style="font-size: 0.5em; margin: 0"><code class="js"  data-trim contenteditable>
                 rxjs.fromEvent(document, 'click')
                     .pipe(
                         rxjs.operators.map((ev) => ev.clientX),

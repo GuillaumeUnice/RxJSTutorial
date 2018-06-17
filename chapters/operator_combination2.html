@@ -37,7 +37,7 @@
         rxjs.combineLatest(interval$, interval$.pipe(rxjs.operators.take(2)))
     </code></pre>
     <iframe src="https://giphy.com/embed/3ktUmNNScuB5p1M5WY" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-    <blockquote>Whenever any input Observable emits a value, it computes a formula using the latest values from all the inputs, then emits the output of that formula || When any observable emits a value, emit the latest value from each</blockquote>
+    <blockquote style="font-size: 0.85em;">Whenever any input Observable emits a value, it computes a formula using the latest values from all the inputs, then emits the output of that formula || When any observable emits a value, emit the latest value from each</blockquote>
 </section>
 <section>
     <h2>forkJoin Operator</h2>
@@ -123,9 +123,11 @@ The zip() operator can be very useful in cases when you need to spread out a str
 <section>
     <h2>exhaust Operator</h2>
     <pre><code class="js"  data-trim contenteditable>
-        const clicks$ = Rx.Observable.fromEvent(document, 'click')
-        const higherOrder$ = clicks.map((ev) => Rx.Observable.interval(1000).take(5))
-        higherOrder$.exhaust()
+        const clicks$ = rxjs.fromEvent(document, 'click')
+        const higherOrder$ = clicks$.pipe(
+            rxjs.operators.map((ev) => rxjs.interval(1000).pipe(rxjs.operators.take(5)))
+        )
+        higherOrder$.pipe(rxjs.operators.exhaust())
     </code></pre>
     <iframe src="https://giphy.com/embed/NTgaF9Pv2JHqrnmrTg" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     <blockquote>Flattens an Observable-of-Observables by dropping the next inner Observables while the current inner is still executing</blockquote>
