@@ -253,3 +253,38 @@ But when you are inside our Observable we can consider from an RxJS perspective 
         </tbody>
     </table>
 </section>
+<section>
+    <h2>Numbers of pipeline</h2>
+    <table>
+        <thead>
+            <tr style="color: rgb(233, 70, 70)">
+                <th></th>
+                <th>COLD</th>
+                <th>WARM</th>
+                <th>HOT</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="color: rgb(70, 81, 233)">0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+            </tr>
+
+            <tr>
+                <td style="color: rgb(70, 81, 233)">1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+
+            <tr>
+                <td style="color: rgb(70, 81, 233)">X</td>
+                <td>X</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
