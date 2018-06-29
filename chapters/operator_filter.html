@@ -217,30 +217,40 @@
 <section>
     <h4>Other Filtering Operators</h4>
     <ul style="font-size: 0.75em">
-        <li>first([predicateFunction(), projectionFunction(), defaultValue])
+        <li>first([predicateFunction(), defaultValue])
             <a href="//jsfiddle.net/n76hs5eu/" target="_blank">here</a>
         </li>
-        <li>last ([predicateFunction(), projectionFunction(), defaultValue])
+        <li>last ([predicateFunction(), defaultValue])
             <a href="//jsfiddle.net/fpx2561a/" target="_blank">here</a>
         </li>
         <br>
-        <li>skip()
+        <li>skip(count)
             <a href="//jsfiddle.net/p8o7st91/" target="_blank">here</a>
         </li>
-        <li>skipUntil()
+        <li>skipUntil(predicateObservable)
             <a href="//jsfiddle.net/276hfb4k/" target="_blank">here</a>
         </li>
-        <li>skipWhile()
+        <li>skipWhile(predicateFunction)
             <a href="//jsfiddle.net/2hj87cmd/" target="_blank">here</a>
         </li>
         <br>
-        <li>auditTime(periodNumber) => when it sees a source values, it ignores that plus the next ones for duration milliseconds,
-            and then it emits the most recent value from the source</li>
-        <li>audit(predicateObservable) => it's like auditTime, but the silencing duration is determined by a second Observable</li>
-        <li>sample(predicateObservable) => last emitted value</li>
-        <li>sampleTime(periodNumber) => last emitted value at periodic time interval</li>
+        <li>auditTime(periodNumber) <a href="//jsfiddle.net/Echyzen/te7go1xw/" target="_blank">here</a>
+             => when it sees a source values, it ignores that plus the next ones for duration milliseconds,
+            and then it emits the most recent value from the source
+
+        </li>
+        <li>audit(predicateObservable) <a href="//jsfiddle.net/Echyzen/c06g1bks/" target="_blank">here</a>
+            => it's like auditTime, but the silencing duration is determined by a second Observable</li>
+        <li>sample(predicateObservable) <a href="//jsfiddle.net/Echyzen/v7ea2k95/" target="_blank">here</a>
+             => last emitted value</li>
+        <li>sampleTime(periodNumber) <a href="//jsfiddle.net/Echyzen/0tcamb7o/" target="_blank">here</a> => last emitted value at periodic time interval</li>
+        <li><span style="color: #F82B90">Difference between audit & sample strategy:</span>
+            <a href="//plnkr.co/edit/JcIE5MzB08SAeQUmr3O3?p=preview" target="_blank">here</a>
+        </li>
         <br>
-        <li>ignoreElements() => ignores all items emitted by the source Observable and only passes calls of complete or error</li>
-        <li>single(predicateFunction) => return value if one match otherwise (more value matched) error</li>
+        <li>ignoreElements() <a href="//jsfiddle.net/Echyzen/rm4o8pe2/" target="_blank">here</a>
+             => ignores all items emitted by the source Observable and only passes calls of complete or error</li>
+        <li>single(predicateFunction) <a href="//jsfiddle.net/Echyzen/u4p36z7s/" target="_blank">here</a>
+             => return value if one match otherwise (more value matched) error</li>
     </ul>
 </section>
