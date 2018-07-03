@@ -30,7 +30,6 @@
     <img src="images/nested_observable.png" width="400" style="border: none;" alt="Nested Observable schema" />
     <blockquote>
         Converts a higher-order Observable into a first-order Observable which concurrently delivers all values that are emitted on the inner Observables and applying a combination strategy (merge, concat)
-        <span  style="position: absolute; right: 0; bottom: -20px; font-size: 0.5em">Paul P. Daniels &amp; Luis Atencio, RxJS in Action</span>
     </blockquote>
 </section>
 <section>
@@ -90,5 +89,14 @@
     </blockquote>
     <aside class="notes">
         Pretty much like zip Operator but on Observable of Observable so only intance method
+    </aside>
+</section>
+<section>
+    <h2>Other Combination Operator</h2>
+    <ul>
+        <li>combineAll => Flattens an Observable-of-Observables by applying combineLatest when the Observable-of-Observables completes <a href="//jsfiddle.net/btroncone/pvj1nbLa/" target="_blank">here</a></li>
+    </ul>
+    <aside class="notes">
+        - combineAll => Once the outer Observable completes, it subscribes to all collected Observables and combines their values using the combineLatest strategy <a href="//reactivex.io/rxjs/class/es6/Observable.js~Observable.html#instance-method-combineAll" target="_blank">diagram</a>
     </aside>
 </section>

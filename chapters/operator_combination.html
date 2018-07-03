@@ -1,4 +1,9 @@
 <section>
+    <blockquote style="line-height: 2em">There is a price to pay for most of our actions. For every actions there is a reaction
+        <span style="position: absolute; right: 0; bottom: -20px; font-size: 0.5em">Giancarlo Esposito</span>
+    </blockquote>
+</section>
+<section>
     <h2>Combination Operators I</h2>
     <ul style="font-size: 0.75em">
         <li style="color: red">merge => Interleave events by merging streams</li>
@@ -79,10 +84,11 @@
     <iframe src="https://giphy.com/embed/1YbvP2jVibyMNYKeaQ" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     <blockquote>Flattens an Observable-of-Observables by dropping the previous inner Observable once a new one appears</blockquote>
     <aside class="notes">
-        -So far, it behaves like mergeAll. However, when a new inner Observable is emitted, switch unsubscribes from the earlier-emitted inner Observable
-            and subscribes to the new inner Observable and begins emitting items from it. It continues to behave like this for subsequent inner Observables.
-        - Such as cancelling the first sequence when a new one begins emitting
-        -Actually this Operator could appear really tricky it's chiefly due to the fact we don't stud inner Observable and higher-oder Observable but don't want to bother you about that yet
+        -So far, it behaves like mergeAll. However, when a new inner Observable is emitted, switch unsubscribes from the earlier-emitted
+        inner Observable and subscribes to the new inner Observable and begins emitting items from it. It continues to behave
+        like this for subsequent inner Observables. - Such as cancelling the first sequence when a new one begins emitting
+        -Actually this Operator could appear really tricky it's chiefly due to the fact we don't stud inner Observable and
+        higher-oder Observable but don't want to bother you about that yet
     </aside>
 </section>
 <section>
@@ -92,7 +98,7 @@
         <p>
             <a href="//jsfiddle.net/Echyzen/jrvqoL9s/" target="_blank">here</a>
         </p>
-    <!--
+        <!--
         'https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&utf8=1&srsearch=lol
     Exercice: Realize a search bar with a map projection (afterthat replace with a switchMap)
     const search$ = Rx.Observable.fromEvent(inputText, 'keyup')
@@ -102,8 +108,8 @@
         .map(query => sendRequest(testData, query)))
         .subscribe(...)
     -->
-    <aside class="notes">
-        <a href="//jsfiddle.net/vbqgLk6y/" target="_blank">Here</a>
-    </aside>
+        <aside class="notes">
+            <a href="//jsfiddle.net/vbqgLk6y/" target="_blank">Here</a>
+        </aside>
     </ul>
 </section>
