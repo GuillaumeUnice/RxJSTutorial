@@ -23,8 +23,8 @@
     <h2>MergeMap Operator</h2>
     <p style="font-size: 0.75em">Named flatMap Operator on RxJS > 5.X</p>
     <pre><code class="js"  data-trim contenteditable>
-        const clicks$ = Rx.Observable.fromEvent(document, 'click')
-        clicks$.mergeMap((ev) => Rx.Observable.interval(1000))
+        const clicks$ = rxjs.fromEvent(document, 'click')
+        clicks$.pipe(rxjs.operators.mergeMap((ev) => rxjs.interval(1000)))
     </code></pre>
     <iframe src="https://giphy.com/embed/uV6qjsjkzzcnoFQF1j" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     <blockquote>Maps each value to an Observable, then flattens all of these inner Observables using mergeAll</blockquote>
@@ -35,8 +35,11 @@
 <section>
     <h2>concatMap Operator</h2>
     <pre><code class="js"  data-trim contenteditable>
-                const clicks$ = Rx.Observable.fromEvent(document, 'click')
-                clicks$.concatMap((ev) => Rx.Observable.interval(1000).take(5))
+                const clicks$ = rxjs.fromEvent(document, 'click')
+                clicks$.pipe(rxjs.operators.concatMap(
+                    (ev) => rxjs.interval(1000)
+                        .pipe(rxjs.operators.take(5)))
+                )
         </code></pre>
     <iframe src="https://giphy.com/embed/1UVCuNtFSGq3EqhPPz" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     <blockquote>Maps each value to an Observable, then flattens all of these inner Observables using concatAll</blockquote>
@@ -47,8 +50,12 @@
 <section>
     <h2>switchMap</h2>
     <pre><code class="js"  data-trim contenteditable>
-            const clicks$ = Rx.Observable.fromEvent(document, 'click')
-            clicks$.switchMap((ev) => Rx.Observable.interval(1000).take(5))
+            const clicks$ = rxjs.fromEvent(document, 'click')
+            clicks$.pipe(
+                rxjs.operators.switchMap(
+                    (ev) => rxjs.interval(1000).pipe(rxjs.operators.take(5))
+                )
+            )
     </code></pre>
     <iframe src="https://giphy.com/embed/5nsfoSeaaQ6xdJaQxN" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
 
@@ -58,8 +65,11 @@
 <section>
     <h2>ExhaustMap Operator</h2>
     <pre><code class="js"  data-trim contenteditable>
-                const clicks$ = Rx.Observable.fromEvent(document, 'click')
-                clicks$.exhaustMap((ev) => Rx.Observable.interval(1000).take(5))
+                const clicks$ = rxjs.fromEvent(document, 'click')
+                clicks$.pipe(rxjs.operators.exhaustMap(
+                        (ev) => rxjs.interval(1000).pipe(rxjs.operators.take(5))
+                    )
+                )
         </code></pre>
     <iframe src="https://giphy.com/embed/NTgaF9Pv2JHqrnmrTg" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     <blockquote>Maps each value to an Observable, then flattens all of these inner Observables using exhaust || Map to inner observable,
@@ -72,7 +82,7 @@
 <section>
     <h2>Other Transformation Operators</h2>
     <ul style="font-size: 0.75em">
-        <li>pairwise => Emit the previous and current values as an array
+        <li>pairwise() => Emit the previous and current values as an array
             <a href="//jsfiddle.net/btroncone/8va47bq3/" target="_blank">here</a>
         </li>
         <li>pluck(...stringPropertyName) => Like map, but meant only for picking one of the nested properties of every emitted
