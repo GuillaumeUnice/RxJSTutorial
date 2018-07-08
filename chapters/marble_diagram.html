@@ -1,18 +1,18 @@
 <section>
   <h2>Marble Diagram</h2>
 
-  <pre><code class="js"  data-trim contenteditable>
+  <pre><code class="js"  style="font-size: 0.9em;" data-trim contenteditable>
     // textual representation
     0--1--2--3-->// rx.delay(0, 1000)
     --0--1--2--3--| // rx.interval(1000).take(3)
 
-    '0', '1', '2', '3' are emitted values could be 'a', 'b', 'c'... if you don't no the values (next())
-    'X' is a error occurred
-    '|'' is the completed signal thrown (complete())
-    '-'' is a frame
-    '-->'' is the timeline
-    '( )' sync groupings: when multiple events occurred in the same frame synchronously
-    '^' subscription point: point out when the observables will be subscribed that concern only Hot observables
+    [a-z0-9]: '0', '1', '2', '3' any alphanumeric character: represents a value being emitted by the producer signaling next()
+    '#': error: an error terminating the observable. This is the observable producer signaling error()
+    '|': complete: The successful completion of an observable. This is the observable producer signaling complete()
+    '-': is a frame
+    '-->': is the timeline
+    '( )': sync groupings: when multiple events occurred in the same frame synchronously
+    '^': subscription point: point out when the observables will be subscribed that concern only Hot observables
   </code></pre>
 
   <img src="images/filter_marble_example.png" style="border: none;" alt="Marble Diagram Example" />
