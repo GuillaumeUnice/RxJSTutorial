@@ -1,8 +1,8 @@
 <section>
     <h3>Error Handling</h3>
     <ul>
-        <li>catch</li>
-        <li>finally</li>
+        <li>catchError</li>
+        <li>finalize</li>
         <br>
         <li>retry</li>
         <li>retryWhen</li>
@@ -41,13 +41,15 @@
     <h2>Observable Error</h2>
 
     <pre><code class="js"  data-trim contenteditable>
-        Rx.Observable.of('test', 'test error')
-        .map(str => {
-            if(str.includes(' ')) {
-                throw new Error(`Error trailing space: ${str}`)
-            }
-            return str;
-        })
+        rxjs.of('test', 'test error')
+        .pipe(
+            rxjs.operators.map(str => {
+                if(str.includes(' ')) {
+                    throw new Error(`Error trailing space: ${str}`)
+                }
+                return str;
+            })
+        )
         .subscribe(
             (res) => console.log(res),
             (err) => console.log(`[Error]: ${err}`),
@@ -69,17 +71,19 @@
     </aside>
 </section>
 <section>
-    <h2>Catch Operator</h2>
+    <h2>CatchError Operator</h2>
     <pre style="font-size: 0.45em; margin: 0;"><code class="js" data-trim contenteditable>
-        Rx.Observable.of(2,3,4,6)
-        .map(num => {
-            if(num % 2 !== 0) {
-            throw new Error(`Unexpected odd number: ${num}`)
-            }
-            return num;
-        })
-        .catch(err => Rx.Observable.of(0))
-        .map(num => ++num)
+        rxjs.of(2,3,4,6)
+        .pipe(
+            rxjs.operators.map(num => {
+                if(num % 2 !== 0) {
+                throw new Error(`Unexpected odd number: ${num}`)
+                }
+                return num;
+            }),
+            rxjs.operators.catchError(err => rxjs.of(0)),
+            rxjs.operators.map(num => ++num)
+        )
 
         .subscribe(
             (res) => console.log(res),
@@ -104,15 +108,18 @@
 <section>
     <h2>Retry Operator</h2>
     <pre><code class="js" data-trim contenteditable>
-        Rx.Observable.of(2,3,4,6)
-        .map(num => {
-            if(num % 2 !== 0) {
-            throw new Error(`Unexpected odd number: ${num}`)
-            }
-            return num;
-        })
-        .map(num => ++num)
-        .catch((err) => Rx.Observable(0))
+        rxjs.of(2,3,4,6)
+        .pipe(
+            rxjs.operators.map(num => {
+                if(num % 2 !== 0) {
+                throw new Error(`Unexpected odd number: ${num}`)
+                }
+                return num;
+            }),
+            rxjs.operators.map(num => ++num)
+            rxjs.operators.catchError((err) => rxjs.of(0))
+
+        )
 
         .subscribe(
             (res) => console.log(res),
@@ -140,8 +147,10 @@
 
     <pre><code class="js" data-trim contenteditable>
         mySource$
-            .switchMap((url) => callPromise(url)
-            .retry(3)
+            .pipe(
+                rxjs.operators.switchMap((url) => callPromise(url)),
+                rxjs.operators.retry(3)
+            )
     </code></pre>
 
     <aside class="notes">
@@ -183,15 +192,18 @@
 
     <pre style="font-size: 0.5em; margin: 0;"><code class="js"  data-trim contenteditable>
         // linear backoff strategy
-        .retryWhen(errors$ =>
-            Rx.Observable.range(1, maxRetries)
-                .zip(errors$, (i, err) => ({'i': i, 'err': err}))
-                .mergeMap(({i, err}) =>
-                    Rx.Observable.if(() => i <= maxRetries - 1,
-                        Rx.Observable.timer(i * 1000)
-                            .do(() => console.log(`Retrying after ${i} second(s)...`)),
-                        Rx.Observable.throw(err))
+        .pipe(rxjs.operators.retryWhen(errors$ =>
+            rxjs.range(1, maxRetries)
+                .pipe(
+                    rxjs.operators.zip(errors$, (i, err) => ({'i': i, 'err': err})),
+                    rxjs.operators.mergeMap(({i, err}) =>
+                        Rx.Observable.if(() => i <= maxRetries - 1,
+                            rxjs.timer(i * 1000)
+                                .pipe(rxjs.operators.tap(() => console.log(`Retrying after ${i} second(s)...`))),
+                            rxjs.throw(err))
+                    )
                 )
+
         )
     </code></pre>
     <img src="images/error_handling/retryWhen.png" width="400" style="border: none;" alt="Schema retryWhen Observable Operator" />
@@ -207,11 +219,11 @@
     example
 </section>
 <section>
-    <h2>Finally Operator</h2>
+    <h2>Finalize Operator</h2>
 
     <pre style="font-size: 0.5em"><code class="js"  data-trim contenteditable>
-        const source$ = Rx.Observable.of(1,2,3,4,5)
-        .finally(() => console.log('FINALLY'))
+        const source$ = rxjs.of(1,2,3,4,5)
+        .finalize(() => console.log('FINALIZE'))
 
         .subscribe(
             (res) => console.log(res),

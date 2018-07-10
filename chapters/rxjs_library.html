@@ -12,6 +12,7 @@
 </section>
 <section>
     <h2>Import path</h2>
+    <p>ES6 Module version:</p>
     <pre><code class="js"  data-trim contenteditable>
         # Before
         import { Observable } from 'rxjs/Observable';
@@ -21,6 +22,14 @@
         # After
         import { Observable, of } from 'rxjs';
         import { map, throttle } from 'rxjs/operators';
+    </code></pre>
+    <p>CDN version:</p>
+    <pre><code class="js"  data-trim contenteditable>
+        # Before
+        Rx.Observable // Static|Observable methods || Observable factory
+        # After
+        rxjs // Static|Observable methods || Observable factory
+        rxjs/operators // Instance methods || Observable instance methods
     </code></pre>
 </section>
 
