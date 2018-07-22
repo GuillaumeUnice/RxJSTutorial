@@ -59,8 +59,7 @@
     </code></pre>
     <iframe src="https://giphy.com/embed/5nsfoSeaaQ6xdJaQxN" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
 
-    <blockquote>Map to observable, complete previous inner observable, emit values || Maps each value to an Observable, then flattens
-        all of these inner Observables using switch</blockquote>
+    <blockquote>Maps each value to an Observable, then flattens all of these inner Observables using switchAll || Map to observable, complete previous inner observable, emit values</blockquote>
 </section>
 <section>
     <h2>ExhaustMap Operator</h2>
@@ -82,34 +81,22 @@
 <section>
     <h2>Other Transformation Operators</h2>
     <ul style="font-size: 0.75em">
-        <li>pairwise() => Emit the previous and current values as an array
-            <a href="//jsfiddle.net/btroncone/8va47bq3/" target="_blank">here</a>
-        </li>
         <li>pluck(...stringPropertyName) => Like map, but meant only for picking one of the nested properties of every emitted
             object
-            <a href="//jsfiddle.net/btroncone/n592m597/" target="_blank">here</a>
+            <a href="//jsfiddle.net/Echyzen/kdhv2gpr/" target="_blank">here</a>
         </li>
         <li>mapTo(value) => Like map, but it maps every source value to the same output value every time
-            <a href="//jsfiddle.net/btroncone/52fqL4nn/" target="_blank">here</a>
+            <a href="//jsfiddle.net/Echyzen/7s9a81hf/" target="_blank">here</a>
         </li>
         <br>
         <li>expand => Recursively call provided function</li>
-        <li>groupBy(selectorFunction) => groups the items emitted by an Observable according to a specified criterion, and emits
+        <li>TODO: groupBy(selectorFunction) => groups the items emitted by an Observable according to a specified criterion, and emits
             these grouped items as GroupedObservables
-            <a href="//jsfiddle.net/btroncone/utncxxvf/" target="_blank">here</a>
+            <a href="//jsfiddle.net/Echyzen/f4zypcqh/" target="_blank">here</a>
         </li>
-        <li>partition(predicateFunction) => It's like filter, but returns two Observables: one like the output of filter, and
+        <li>partition(predicateFunction, thisArg) => It's like filter, but returns two Observables: one like the output of filter, and
             the other with values that did not pass the condition
-            <a href="//jsfiddle.net/btroncone/q0xo7gvv/" target="_blank">here</a>
+            <a href="//jsfiddle.net/Echyzen/yLnhakqz/" target="_blank">here</a>
         </li>
-        <br>
-        <li>window(predicateObservable) => It's like buffer, but emits a nested Observable instead of an array </li>
-        <li>windowCount(number) => It's like bufferCount, but emits a nested Observable instead of an array</li>
-        <li>windowToggle() => It's like bufferToggle, but emits a nested Observable instead of an array</li>
-        <li>windowTime(periodNumber) => It's like bufferTime, but emits a nested Observable instead of an array</li>
-        <li>windowWhen(predicateFunction) => It's like bufferWhen, but emits a nested Observable instead of an array</li>
     </ul>
-    <aside class="notes">
-        - pairwise: Pretty much like Buffer
-    </aside>
 </section>

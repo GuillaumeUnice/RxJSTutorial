@@ -97,3 +97,20 @@
     <blockquote>Collects values from the past as an array. Starts collecting only when opening emits, and calls the closingSelector function
         to get an Observable that tells when to close the buffer</blockquote>
 </section>
+<section>
+    <h2>Other Buffering Transformation Operators</h2>
+    <ul style="font-size: 0.75em">
+        <li>pairwise() => Emit the previous and current values as an array
+            <a href="//jsfiddle.net/Echyzen/v54pjyLg/1/" target="_blank">here</a>
+        </li>
+        <br>
+        <li>window(predicateObservable) => It's like buffer, but emits a nested Observable instead of an array </li>
+        <li>windowCount(number) => It's like bufferCount, but emits a nested Observable instead of an array</li>
+        <li>windowToggle() => It's like bufferToggle, but emits a nested Observable instead of an array</li>
+        <li>windowTime(periodNumber) => It's like bufferTime, but emits a nested Observable instead of an array</li>
+        <li>windowWhen(predicateFunction) => It's like bufferWhen, but emits a nested Observable instead of an array</li>
+    </ul>
+    <aside class="notes">
+        - pairwise: Pretty much like Buffer
+    </aside>
+</section>
