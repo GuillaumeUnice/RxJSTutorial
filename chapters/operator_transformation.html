@@ -22,16 +22,13 @@
 </section> -->
 <section>
     <h2>MergeMap Operator</h2>
-    <p style="font-size: 0.75em">Named flatMap Operator on RxJS > 5.X</p>
+    <p style="font-size: 0.75em">Named flatMap Operator on RxJS <= 4.X</p>
     <pre><code class="js"  data-trim contenteditable>
         const clicks$ = rxjs.fromEvent(document, 'click')
         clicks$.pipe(rxjs.operators.mergeMap((ev) => rxjs.interval(1000)))
     </code></pre>
     <iframe src="https://giphy.com/embed/uV6qjsjkzzcnoFQF1j" width="400" height="100%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
     <blockquote>Maps each value to an Observable, then flattens all of these inner Observables using mergeAll</blockquote>
-    <aside>
-        On old article named flatMap()  (RxJS 4.X <=)
-    </aside>
 </section>
 <section>
     <h2>concatMap Operator</h2>
@@ -90,14 +87,15 @@
             <a href="//jsfiddle.net/Echyzen/7s9a81hf/" target="_blank">here</a>
         </li>
         <br>
-        <li>expand => Recursively call provided function</li>
-        <li>TODO: groupBy(selectorFunction) => groups the items emitted by an Observable according to a specified criterion, and emits
-            these grouped items as GroupedObservables
-            <a href="//jsfiddle.net/Echyzen/f4zypcqh/" target="_blank">here</a>
-        </li>
+        <li>expand => Recursively call provided function<a href="//jsfiddle.net/Echyzen/0dr9w1xL/" target="_blank">here</a></li>
+        <br>
         <li>partition(predicateFunction, thisArg) => It's like filter, but returns two Observables: one like the output of filter, and
             the other with values that did not pass the condition
             <a href="//jsfiddle.net/Echyzen/yLnhakqz/" target="_blank">here</a>
+        </li>
+        <li>groupBy(selectorFunction) => groups the items emitted by an Observable according to a specified criterion, and emits
+            these grouped items as GroupedObservables
+            <a href="//jsfiddle.net/Echyzen/f4zypcqh/" target="_blank">here</a>
         </li>
     </ul>
 </section>
