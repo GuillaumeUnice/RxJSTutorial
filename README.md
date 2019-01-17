@@ -30,6 +30,9 @@ alt="Thumbnail RxJS Marble Diagram tutorial" width="240" height="180" border="10
 alt="Thumbnail RxJS Core Observable Operator tutorial" width="240" height="180" border="10" /></a>
 
 ## RxJS: Creator Operator
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=DknMJkVq1ss
+" target="_blank"><img src="http://img.youtube.com/vi/DknMJkVq1ss/0.jpg"
+alt="Thumbnail RxJS Creator Observable Operator tutorial" width="240" height="180" border="10" /></a>
 
 ## RxJS: Filtering Operators
 
