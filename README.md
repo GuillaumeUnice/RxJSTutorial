@@ -40,5 +40,12 @@ alt="Thumbnail RxJS Creator Observable Operator tutorial" width="240" height="18
 alt="Thumbnail RxJS Filter Observable Operator tutorial" width="240" height="180" border="10" /></a>
 
 ## RxJS: Combination Operator I
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=_bfR4CLTCzc
+" target="_blank"><img src="http://img.youtube.com/vi/_bfR4CLTCzc/0.jpg"
+alt="Thumbnail RxJS Combination Observable Operator I tutorial" width="240" height="180" border="10" /></a>
+
 ## RxJS: Combination Operator II
 ## RxJS: Combination Operator III
+
+## RxJS: Transformation Operator
+## RxJS: Buffering Operator
